@@ -10,6 +10,54 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #0d0d0f; color: #e8e6e0; font-family: 'DM Sans', sans-serif; min-height: 100vh; }
 
+    /* LOGIN SCREEN */
+    #login-screen {
+      position: fixed; inset: 0; background: #0d0d0f;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .login-box {
+      width: 100%; max-width: 360px; padding: 2.5rem;
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+    }
+    .login-logo {
+      font-family: 'Space Mono', monospace; font-size: 13px;
+      color: #a0e4c4; letter-spacing: 0.1em; margin-bottom: 2rem;
+    }
+    .login-box h2 {
+      font-size: 22px; font-weight: 300; margin-bottom: 0.5rem;
+    }
+    .login-box p {
+      font-size: 13px; color: rgba(232,230,224,0.4); margin-bottom: 2rem;
+    }
+    .login-box input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px; color: #e8e6e0;
+      font-size: 14px; font-family: 'DM Sans', sans-serif;
+      margin-bottom: 1rem; outline: none;
+      transition: border 0.2s;
+    }
+    .login-box input:focus { border-color: #a0e4c4; }
+    .login-box button {
+      width: 100%; padding: 0.75rem;
+      background: #a0e4c4; color: #0d0d0f;
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .login-box button:hover { opacity: 0.85; }
+    .login-error {
+      font-size: 12px; color: #f87171;
+      margin-top: 0.75rem; display: none; text-align: center;
+    }
+
+    /* MAIN CONTENT */
+    #main-content { display: none; }
+
     nav {
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.5rem 3rem;
@@ -20,9 +68,16 @@
       z-index: 10;
     }
     .logo { font-family: 'Space Mono', monospace; font-size: 14px; color: #a0e4c4; letter-spacing: 0.1em; }
-    .nav-links { display: flex; gap: 2rem; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-links a { font-size: 13px; color: rgba(232,230,224,0.5); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: #e8e6e0; }
+    .logout-btn {
+      font-size: 12px; color: rgba(232,230,224,0.3);
+      background: none; border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 4px 12px; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+    }
+    .logout-btn:hover { color: #e8e6e0; border-color: rgba(255,255,255,0.3); }
 
     .hero { padding: 6rem 3rem 4rem; max-width: 900px; }
     .tag {
@@ -79,37 +134,50 @@
 </head>
 <body>
 
+<!-- PANTALLA DE LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">GRUPO_ERRAZURIZ.dev</div>
+    <h2>Acceso <span style="color:#a0e4c4">restringido</span></h2>
+    <p>Ingresa la contraseña para ver los dashboards</p>
+    <input type="password" id="pwd-input" placeholder="Contraseña" />
+    <button onclick="checkPassword()">Ingresar →</button>
+    <div class="login-error" id="login-error">Contraseña incorrecta</div>
+  </div>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div id="main-content">
+
 <nav>
-  <span class="logo">Claudio Campos.dev</span>
-  <!-- ✏️ Cambia los href a los IDs de tus secciones -->
+  <span class="logo">GRUPO_ERRAZURIZ.dev</span>
   <div class="nav-links">
     <a href="#proyectos">proyectos</a>
     <a href="#sobre-mi">sobre mí</a>
-    <a href="ccampos@cosayach.cl">contacto</a>
+    <a href="mailto:tu@email.com">contacto</a>
+    <button class="logout-btn" onclick="logout()">cerrar sesión</button>
   </div>
 </nav>
 
 <div class="hero">
-  <div class="tag"><span class="dot"></span>disponible para proyectos</div>
-  <!-- ✏️ Personaliza el título y descripción -->
-  <h1>Grupo Errazuriz<br><span></span></h1>
+  <div class="tag"><span class="dot"></span>uso interno</div>
+  <h1>Datos que<br><span>cuentan historias</span></h1>
   <p class="subtitle">Dashboards interactivos y herramientas de análisis. Cada proyecto construido para revelar lo que los números esconden.</p>
 </div>
 
-<!-- PROYECTOS — agrega o quita .card según necesites -->
 <div class="section" id="proyectos">
   <div class="section-label">proyectos recientes</div>
   <div class="grid">
 
-    <!-- ✏️ PROYECTO 1 — cambia href a la ruta del archivo HTML dentro de tu repo -->
+    <!-- ✏️ PROYECTO 1 -->
     <a class="card" href="proyectos/Maderas-Dashboard.html" target="_blank">
-      <div class="card-type">Dashboard</div>
-      <h3>Ventas Maderas</h3>
-      <p>Visualización interactiva de métricas de ventas de aserradero AISA por cliente, OC y fechas de despachos.</p>
+      <div class="card-type">dashboard</div>
+      <h3>Silvertree — Exportación Maderas Korea</h3>
+      <p>Panel de seguimiento de órdenes de exportación por REQ, volumen, precio y ETD para mercado coreano.</p>
       <div class="card-footer">
         <div class="chips">
-          <span class="chip teal">D3.js</span>
-          <span class="chip teal">CSV</span>
+          <span class="chip teal">HTML</span>
+          <span class="chip teal">CSS</span>
         </div>
         <span class="arrow">→</span>
       </div>
@@ -117,27 +185,26 @@
 
     <!-- ✏️ PROYECTO 2 -->
     <a class="card" href="proyectos/nitrate-dashboard.html" target="_blank">
-  <div class="card-type">Dashboard</div>
-  <h3>Nitrate Sales — Cosayach</h3>
-  <p>Dashboard de ventas de Nitratos con filtros por año, familia de producto y cliente.</p>
-  <div class="card-footer">
-    <div class="chips">
-      <span class="chip teal">Chart.js</span>
-      <span class="chip teal">JS</span>
-    </div>
-    <span class="arrow">→</span>
-  </div>
-</a>
-
-    <!-- ✏️ PROYECTO 3 -->
-    <a class="card" href="proyectos/proyecto-3.html" target="_blank">
       <div class="card-type">dashboard</div>
-      <h3>Monitor de KPIs</h3>
-      <p>Panel en tiempo real con indicadores clave de rendimiento, alertas y exportación de reportes.</p>
+      <h3>Nitrate Sales — Cosayach</h3>
+      <p>Dashboard de ventas de nitratos con filtros por año, familia de producto y cliente.</p>
       <div class="card-footer">
         <div class="chips">
-          <span class="chip amber">Recharts</span>
-          <span class="chip amber">React</span>
+          <span class="chip purple">Chart.js</span>
+          <span class="chip purple">JS</span>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- ✏️ PROYECTO 3 — reemplaza cuando tengas un tercer proyecto -->
+    <a class="card" href="proyectos/proyecto-3.html" target="_blank">
+      <div class="card-type">dashboard</div>
+      <h3>Próximamente</div>
+      <p>Nuevo proyecto en desarrollo.</p>
+      <div class="card-footer">
+        <div class="chips">
+          <span class="chip amber">—</span>
         </div>
         <span class="arrow">→</span>
       </div>
@@ -150,17 +217,52 @@
 
 <div class="section" id="sobre-mi">
   <div class="section-label">sobre mí</div>
-  <!-- ✏️ Tu descripción personal -->
   <p style="max-width: 600px; color: rgba(232,230,224,0.6); line-height: 1.8; font-size: 15px;">
-    Analista / desarrollador especializado en visualización de datos y herramientas interactivas.
-    Trabajo con Python, JavaScript y SQL para convertir datos complejos en experiencias claras.
+    Analista especializado en visualización de datos y herramientas interactivas para toma de decisiones comerciales.
   </p>
 </div>
 
 <div class="footer">
-  <span class="footer-text">© 2025 — TU_NOMBRE</span>
+  <span class="footer-text">© 2026 — Grupo Errazuriz</span>
   <a href="mailto:tu@email.com" style="font-size:13px; color:#a0e4c4; text-decoration:none; border-bottom: 0.5px solid rgba(160,228,196,0.3); padding-bottom:2px;">contacto →</a>
 </div>
+
+</div><!-- fin main-content -->
+
+<script>
+  const PASS = "Sales2026!";
+
+  function checkPassword() {
+    const input = document.getElementById('pwd-input').value;
+    if (input === PASS) {
+      sessionStorage.setItem('auth', 'ok');
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('pwd-input').value = '';
+      document.getElementById('pwd-input').focus();
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('auth');
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('main-content').style.display = 'none';
+    document.getElementById('pwd-input').value = '';
+  }
+
+  // Permitir Enter para ingresar
+  document.getElementById('pwd-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // Verificar si ya estaba autenticado en esta sesión
+  if (sessionStorage.getItem('auth') === 'ok') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+  }
+</script>
 
 </body>
 </html>
