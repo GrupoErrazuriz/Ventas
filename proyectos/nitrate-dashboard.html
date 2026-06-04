@@ -117,7 +117,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="pill-row" id="pAnio">
           <button class="pill on-y25" data-v="todos" onclick="setAnio(this)">Todos</button>
           <button class="pill" data-v="2025" onclick="setAnio(this)">2025</button>
-          <button class="pill" data-v="2026" onclick="setAnio(this)">2026 (Ene–Abr)</button>
+          <button class="pill" data-v="2026" onclick="setAnio(this)">2026</button>
         </div>
       </div>
       <div class="fg">
@@ -545,7 +545,7 @@ function updateAll(){
 
   document.getElementById('kTon').textContent=Math.round(tot).toLocaleString('es');
   document.getElementById('kTonSub').textContent=
-    mesSel?MESES[mesSel]:anioSel==='todos'?'2025–2026':anioSel===2026?'Ene–Abr 2026':'Año completo';
+    mesSel?MESES[mesSel]:anioSel==='todos'?'2025–2026':String(anioSel);
   document.getElementById('kUSD').textContent=fmt(totUSD);
   document.getElementById('kEXW').textContent=fmt(totEXW);
   document.getElementById('kPrecio').textContent='$'+Math.round(pvWt);
@@ -560,7 +560,7 @@ function updateAll(){
 
   const years=anioSel==='todos'?[2025,2026]:[anioSel];
   const dsBar=years.map(y=>({
-    label:y===2026?'2026 (Ene–Abr)':String(y),
+    label:String(y),
     data:Array.from({length:12},(_,i)=>{
       const m=i+1;
       if(mesSel&&m!==mesSel) return null;
@@ -571,7 +571,7 @@ function updateAll(){
     borderRadius:4
   }));
   document.getElementById('legMes').innerHTML=years.map(y=>
-    `<span><span class="ldot" style="background:${YCOL[y]}"></span>${y===2026?'2026 (Ene–Abr)':y}</span>`
+    `<span><span class="ldot" style="background:${YCOL[y]}"></span>${y}</span>`
   ).join('');
   if(chMes)chMes.destroy();
   chMes=new Chart(document.getElementById('cMes'),{
