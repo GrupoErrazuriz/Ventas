@@ -287,6 +287,11 @@ async function loadData() {
     const res = await fetch('nitrate_data.json');
     const d = await res.json();
     RAW = d.RAW;
+    // Rebuild autocomplete lists from loaded data
+    ALL_CLI.length = 0;
+    ALL_REQ.length = 0;
+    [...new Set(RAW.map(r=>r.alias))].sort().forEach(x=>ALL_CLI.push(x));
+    [...new Set(RAW.map(r=>r.req))].sort((a,b)=>+a-+b).forEach(x=>ALL_REQ.push(x));
     updateAll();
   } catch(e) {
     document.body.innerHTML = '<div style="padding:40px;font-family:monospace;color:red;">Error cargando nitrate_data.json: ' + e.message + '</div>';
@@ -298,8 +303,8 @@ const FCOL={NOP:'#3266ad',SALITRE:'#e07b39'};
 const FLAGS={CHILE:'🇨🇱',BRAZIL:'🇧🇷',ARGENTINA:'🇦🇷',INDONESIA:'🇮🇩',PERU:'🇵🇪',MEXICO:'🇲🇽',
   ECUADOR:'🇪🇨',USA:'🇺🇸',GUATEMALA:'🇬🇹',NICARAGUA:'🇳🇮',TAIWAN:'🇹🇼',BOLIVIA:'🇧🇴'};
 
-const ALL_CLI=[...new Set(RAW.map(r=>r.alias))].sort();
-const ALL_REQ=[...new Set(RAW.map(r=>r.req))].sort((a,b)=>+a-+b);
+const ALL_CLI=[];
+const ALL_REQ=[];
 
 let anioSel='todos', mesSel=0, famSel='';
 let selCli=new Set(), selReq=new Set();
