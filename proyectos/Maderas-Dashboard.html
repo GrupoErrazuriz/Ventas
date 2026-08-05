@@ -1,526 +1,129 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maderas Dashboard — Exportación Korea</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    background: #f5f4f0;
-    color: #1a1a18;
-    padding: 2rem;
-    min-height: 100vh;
-  }
-  .dash { max-width: 960px; margin: 0 auto; }
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maderas Dashboard — Korea Export</title>
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#f5f4f0;color:#1a1a18;padding:2rem;min-height:100vh;}
+.dash{max-width:980px;margin:0 auto;}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.logo{width:42px;height:42px;border-radius:8px;background:#1D9E75;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.header-text h1{font-size:19px;font-weight:500;color:#1a1a18;}
+.header-text p{font-size:12px;color:#6b6b67;margin-top:2px;}
+.badge{font-size:11px;padding:4px 12px;border-radius:20px;font-weight:500;background:#E1F5EE;color:#0F6E56;}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.5rem;}
+.metric{background:#edecea;border-radius:8px;padding:.9rem 1rem;}
+.mlabel{font-size:11px;color:#6b6b67;margin-bottom:5px;}
+.mval{font-size:22px;font-weight:500;color:#1a1a18;line-height:1;}
+.msub{font-size:11px;color:#9a9a96;margin-top:4px;}
+.msub-real{font-size:11px;margin-top:3px;color:#6b6b67;}
+.macc-blue{font-size:11px;font-weight:500;margin-top:4px;color:#185FA5;}
+.client-header{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;margin-top:1.5rem;padding-bottom:8px;border-bottom:1.5px solid rgba(0,0,0,.12);}
+.client-header h2{font-size:15px;font-weight:600;color:#1a1a18;}
+.client-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;}
+.cb-st{background:#E1F5EE;color:#0F6E56;}.cb-dy{background:#E6F1FB;color:#185FA5;}
+.client-sub{font-size:11px;color:#6b6b67;}
+.sec-title{font-size:11px;font-weight:600;color:#6b6b67;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;}
+.orders-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-bottom:1.25rem;}
+.ocard{border:.5px solid rgba(0,0,0,.12);border-radius:8px;padding:10px 12px;background:#fff;}
+.ocard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;}
+.oclient{font-size:12px;font-weight:500;color:#1a1a18;}
+.ometa{font-size:10px;color:#9a9a96;text-align:right;line-height:1.7;}
+.ovol{font-size:20px;font-weight:500;color:#1a1a18;}
+.ounit{font-size:10px;color:#6b6b67;font-weight:400;}
+.vol-real{font-size:11px;color:#185FA5;margin-top:2px;font-weight:500;}
+.oprice-total{font-size:11px;font-weight:500;color:#0F6E56;margin-top:4px;margin-bottom:4px;}
+.usd-real{font-size:10px;color:#6b6b67;display:block;margin-top:1px;}
+.esc-table{width:100%;border-collapse:collapse;margin-top:2px;}
+.esc-table tr{border-top:.5px solid rgba(0,0,0,.07);}.esc-table tr:first-child{border-top:none;}
+.esc-table td{font-size:10px;padding:3px 0;vertical-align:middle;}
+.esc-name{color:#1a1a18;}.esc-vol{text-align:center;color:#6b6b67;padding:0 4px;}
+.esc-cbm{text-align:right;font-weight:500;white-space:nowrap;}
+.cbm-195{color:#3B6D11;}.cbm-215{color:#185FA5;}.cbm-225{color:#854F0B;}.cbm-230{color:#B45309;}.cbm-280{color:#6D28D9;}
+.pill{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;display:inline-block;margin-top:6px;}
+.p-disp{background:#E1F5EE;color:#0F6E56;}.p-partial{background:#FEF3C7;color:#92400E;}
+.p-may{background:#E6F1FB;color:#185FA5;}.p-jun{background:#EAF3DE;color:#3B6D11;}
+.p-jul{background:#EDE9FE;color:#5B21B6;}.p-aug{background:#FEF3C7;color:#92400E;}
+.p-sep{background:#FEE2E2;color:#991B1B;}.p-oct{background:#F3E8FF;color:#7E22CE;}.p-tbd{background:#F3F4F6;color:#6B7280;}
+.etd-card{background:#fff;border:.5px solid rgba(0,0,0,.12);border-radius:12px;padding:1rem 1.25rem;margin-top:1.5rem;}
+.etd-title{font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:14px;}
+.etd-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.etd-lbl{font-size:12px;color:#6b6b67;width:88px;flex-shrink:0;}
+.etd-track{flex:1;background:#edecea;border-radius:4px;height:24px;overflow:hidden;}
+.etd-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;font-size:10px;font-weight:500;white-space:nowrap;overflow:hidden;}
+.etd-num{font-size:12px;font-weight:500;color:#1a1a18;width:62px;text-align:right;flex-shrink:0;}
+.etd-foot{margin-top:12px;padding-top:10px;border-top:.5px solid rgba(0,0,0,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:11px;color:#6b6b67;}
+.etd-foot strong{color:#1a1a18;}
+.footer{margin-top:1.5rem;text-align:center;font-size:11px;color:#9a9a96;}</style></head><body><div class="dash">
+<div class="header"><div class="header-left">
+<div class="logo"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="10" width="16" height="3" rx="1" fill="white"/><rect x="6" y="5" width="10" height="3" rx="1" fill="white" opacity=".8"/><rect x="4" y="15" width="14" height="3" rx="1" fill="white" opacity=".6"/></svg></div>
+<div class="header-text"><h1>Exportación Maderas</h1><p>✓ ok (±10 m³ per size) · ~ partial · ✗ not dispatched · 05 Aug 2026</p></div>
+</div><span class="badge">Korea · 2026</span></div>
 
-  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
-  .header-left { display: flex; align-items: center; gap: 12px; }
-  .logo { width: 42px; height: 42px; border-radius: 8px; background: #1D9E75; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .header-text h1 { font-size: 19px; font-weight: 500; color: #1a1a18; }
-  .header-text p { font-size: 12px; color: #6b6b67; margin-top: 2px; }
-  .badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 500; background: #E1F5EE; color: #0F6E56; }
-
-  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 1.5rem; }
-  .metric { background: #edecea; border-radius: 8px; padding: 0.9rem 1rem; }
-  .mlabel { font-size: 11px; color: #6b6b67; margin-bottom: 5px; }
-  .mval { font-size: 24px; font-weight: 500; color: #1a1a18; line-height: 1; }
-  .msub { font-size: 11px; color: #9a9a96; margin-top: 4px; }
-  .macc { font-size: 11px; font-weight: 500; margin-top: 4px; color: #0F6E56; }
-  .macc-blue { font-size: 11px; font-weight: 500; margin-top: 4px; color: #185FA5; }
-
-  /* CLIENT SECTION DIVIDER */
-  .client-section { margin-bottom: 0.5rem; }
-  .client-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; margin-top: 1.25rem; padding-bottom: 8px; border-bottom: 1.5px solid var(--color-border-secondary, rgba(0,0,0,0.12)); }
-  .client-header h2 { font-size: 15px; font-weight: 600; color: #1a1a18; }
-  .client-badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-  .cb-st { background: #E1F5EE; color: #0F6E56; }
-  .cb-dy { background: #E6F1FB; color: #185FA5; }
-
-  .sec-title { font-size: 12px; font-weight: 500; color: #6b6b67; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
-
-  .orders-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 8px; margin-bottom: 1.25rem; }
-  .ocard { border: 0.5px solid rgba(0,0,0,0.12); border-radius: 8px; padding: 10px 12px; background: #fff; }
-  .ocard-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
-  .oclient { font-size: 12px; font-weight: 500; color: #1a1a18; }
-  .ometa { font-size: 10px; color: #9a9a96; text-align: right; line-height: 1.5; }
-  .ovol { font-size: 20px; font-weight: 500; color: #1a1a18; }
-  .ounit { font-size: 10px; color: #6b6b67; font-weight: 400; }
-  .oprice-total { font-size: 11px; font-weight: 500; color: #0F6E56; margin-top: 4px; margin-bottom: 2px; }
-  .esc-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
-  .esc-table tr { border-top: 0.5px solid rgba(0,0,0,0.08); }
-  .esc-table tr:first-child { border-top: none; }
-  .esc-table td { font-size: 10px; padding: 3px 0; vertical-align: middle; }
-  .esc-name { color: #1a1a18; }
-  .esc-vol { text-align: center; color: #6b6b67; padding: 0 4px; }
-  .esc-cbm { text-align: right; font-weight: 500; white-space: nowrap; }
-  .cbm-215 { color: #185FA5; }
-  .cbm-225 { color: #854F0B; }
-  .cbm-280 { color: #6D28D9; }
-  .pill { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500; display: inline-block; margin-top: 6px; }
-  .p-disp { background: #E1F5EE; color: #0F6E56; }
-  .p-may  { background: #E6F1FB; color: #185FA5; }
-  .p-jun  { background: #EAF3DE; color: #3B6D11; }
-  .p-jul  { background: #EDE9FE; color: #5B21B6; }
-  .p-aug  { background: #FEF3C7; color: #92400E; }
-  .p-sep  { background: #FEE2E2; color: #991B1B; }
-  .p-tbd  { background: #F3F4F6; color: #6B7280; }
-
-  .etd-card { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1.25rem; }
-  .etd-title { font-size: 13px; font-weight: 500; color: #1a1a18; margin-bottom: 14px; }
-  .etd-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
-  .etd-lbl { font-size: 12px; color: #6b6b67; width: 86px; flex-shrink: 0; }
-  .etd-track { flex: 1; background: #edecea; border-radius: 4px; height: 24px; overflow: hidden; }
-  .etd-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 10px; font-weight: 500; white-space: nowrap; overflow: hidden; }
-  .etd-num { font-size: 12px; font-weight: 500; color: #1a1a18; width: 62px; text-align: right; flex-shrink: 0; }
-  .etd-foot { margin-top: 12px; padding-top: 10px; border-top: 0.5px solid rgba(0,0,0,0.12); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; font-size: 11px; color: #6b6b67; }
-  .etd-foot strong { color: #1a1a18; }
-
-  .footer { margin-top: 1.5rem; text-align: center; font-size: 11px; color: #9a9a96; }
-</style>
-</head>
-<body>
-<div class="dash">
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <div class="logo">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <rect x="3" y="10" width="16" height="3" rx="1" fill="white"/>
-          <rect x="6" y="5" width="10" height="3" rx="1" fill="white" opacity="0.8"/>
-          <rect x="4" y="15" width="14" height="3" rx="1" fill="white" opacity="0.6"/>
-        </svg>
-      </div>
-      <div class="header-text">
-        <h1>Exportación Maderas</h1>
-        <p>Órdenes agrupadas por REQ. · Volumen · Precio · ETD · Empresa exportadora</p>
-      </div>
-    </div>
-    <span class="badge">Korea · 2026</span>
-  </div>
-
-  <!-- METRICS CONSOLIDADOS -->
-  <div class="metrics">
-    <div class="metric">
-      <div class="mlabel">Volumen despachado</div>
-      <div class="mval">1.240</div>
-      <div class="msub">m³ · 6 REQ. embarcadas</div>
-      <div class="macc">AISA · AISA Trading</div>
-    </div>
-    <div class="metric">
-      <div class="mlabel">Volumen por despachar</div>
-      <div class="mval">3.960</div>
-      <div class="msub">m³ · 18 REQ. pendientes</div>
-      <div class="msub" style="color:#9a9a96;">AISA Trading</div>
-    </div>
-    <div class="metric">
-      <div class="mlabel">Facturado</div>
-      <div class="mval" style="font-size:18px;">$292.600</div>
-      <div class="msub">USD · mix $215–$280/m³</div>
-      <div class="macc">REQ 2501 · 2502 · 2503 · 2505 · 2506 · 2508</div>
-    </div>
-    <div class="metric">
-      <div class="mlabel">Por facturar</div>
-      <div class="mval" style="font-size:18px;">$873.600</div>
-      <div class="msub">USD · $215–$225/m³</div>
-      <div class="macc-blue">PF 4–29 · PF 31–32 · REQ. 2504–4622</div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════ -->
-  <!-- SILVERTREE -->
-  <!-- ══════════════════════════════════ -->
-  <div class="client-section">
-    <div class="client-header">
-      <h2>Silvertree</h2>
-      <span class="client-badge cb-st">Cliente</span>
-      <span style="font-size:11px;color:#6b6b67;">Exportado vía AISA · AISA Trading</span>
-    </div>
-
-    <div class="sec-title">Órdenes Despachadas</div>
-    <div class="orders-grid">
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">SEJIN</span><span class="ometa">REQ 2501 · PF 1<br>5 Jan · 8 cont.<br>AISA</span></div>
-        <div class="ovol">230 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 60.500 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">13×87×1150</td><td class="esc-vol">140 m³</td><td class="esc-cbm cbm-280">$280/m³</td></tr>
-          <tr><td class="esc-name">16×97×900</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-280">$280/m³</td></tr>
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-disp">Dispatched · 5 Jan</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">KYEONG LIM</span><span class="ometa">REQ 2502 · PF 2<br>OC 1 · 7 cont.<br>AISA</span></div>
-        <div class="ovol">210 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 45.150 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-disp">Dispatched · 23 Jan</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 2503 · PF 3<br>23 Jan · 10 cont.<br>AISA</span></div>
-        <div class="ovol">290 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 77.300 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">13×87×1150</td><td class="esc-vol">140 m³</td><td class="esc-cbm cbm-280">$280/m³</td></tr>
-          <tr><td class="esc-name">16×97×900</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-280">$280/m³</td></tr>
-          <tr><td class="esc-name">16×97×1200</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-280">$280/m³</td></tr>
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-disp">Dispatched · 23 Jan</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">TS WOOD</span><span class="ometa">REQ 2505 · PF 5<br>OC 3 · 9 cont.<br>AISA Trading</span></div>
-        <div class="ovol">270 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 58.050 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">210 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-disp">Dispatched · 10 Apr</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 2506 · PF 6<br>OC 4 · 4 cont.<br>AISA Trading</span></div>
-        <div class="ovol">120 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 25.800 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-disp">Dispatched · 20 Apr</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 2508 · PF 8<br>OC 5 · 4 cont.<br>AISA Trading</span></div>
-        <div class="ovol">120 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 25.800 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-disp">Dispatched · 20 Apr</span>
-      </div>
-
-    </div>
-
-    <div class="sec-title">Órdenes por Despachar</div>
-    <div class="orders-grid">
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">SEJIN</span><span class="ometa">REQ 2504 · PF 4<br>OC 2 · 3 cont.<br>AISA Trading</span></div>
-        <div class="ovol">90 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 19.350 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">116×116×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-may">ETD: May</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 2509 · PF 9<br>OC 6 · 10 cont.<br>AISA Trading</span></div>
-        <div class="ovol">300 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 64.500 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">46×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">81×81×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-may">ETD: 2 May</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 4607 · PF 16<br>OC 13 · 12 cont.<br>AISA Trading</span></div>
-        <div class="ovol">360 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 77.400 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">81×81×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-may">ETD: May</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">TS WOOD</span><span class="ometa">REQ 4608 · PF 17<br>OC 14 · 6 cont.<br>AISA Trading</span></div>
-        <div class="ovol">180 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 38.700 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">71×71×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-may">ETD: May</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 4609 · PF 18<br>OC 15 · 9 cont.<br>AISA Trading</span></div>
-        <div class="ovol">270 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 58.050 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-jun">ETD: June</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">NEW DAELIM</span><span class="ometa">REQ 4610 · PF 19<br>OC 16 · 8 cont.<br>AISA Trading</span></div>
-        <div class="ovol">240 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 51.600 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-          <tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-jun">ETD: June</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4611 · PF 20<br>OC 17 · 12 cont.<br>AISA Trading</span></div>
-        <div class="ovol">360 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 81.000 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-aug">ETD: August</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4612 · PF 21<br>OC 18 · 10 cont.<br>AISA Trading</span></div>
-        <div class="ovol">300 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 67.500 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-aug">ETD: August</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4613 · PF 22<br>OC 19 · 9 cont.<br>AISA Trading</span></div>
-        <div class="ovol">270 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 60.750 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-aug">ETD: August</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">NEW DAELIM</span><span class="ometa">REQ 4614 · PF 23<br>OC 20 · 7 cont.<br>AISA Trading</span></div>
-        <div class="ovol">210 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 47.250 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-sep">ETD: September</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">Song San Wood</span><span class="ometa">REQ 4615 · PF 24<br>OC 21 · 12 cont.<br>AISA Trading</span></div>
-        <div class="ovol">360 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 81.000 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-sep">ETD: September</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 4616 · PF 25<br>OC 22 · 6 cont.<br>AISA Trading</span></div>
-        <div class="ovol">180 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 40.500 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-jul">ETD: July</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 4617 · PF 26<br>OC 23 · 6 cont.<br>AISA Trading</span></div>
-        <div class="ovol">180 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 40.500 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-jul">ETD: July</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">Kyeong Lim Timber</span><span class="ometa">REQ 4618 · PF 27<br>OC 24 · 7 cont.<br>AISA Trading</span></div>
-        <div class="ovol">210 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 47.250 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-jul">ETD: July</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 4619 · PF 28<br>OC 25 · 4 cont.<br>AISA Trading</span></div>
-        <div class="ovol">120 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 27.000 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-          <tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-tbd">ETD: Por definir</span>
-      </div>
-
-      <div class="ocard">
-        <div class="ocard-top"><span class="oclient">Song San Wood</span><span class="ometa">REQ 4620 · PF 29<br>OC 26 · 1 cont.<br>AISA Trading</span></div>
-        <div class="ovol">30 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 6.750 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr>
-        </table>
-        <span class="pill p-tbd">ETD: Por definir</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════ -->
-  <!-- DY GLOBAL -->
-  <!-- ══════════════════════════════════ -->
-  <div class="client-section">
-    <div class="client-header">
-      <h2>DY Global</h2>
-      <span class="client-badge cb-dy">Cliente</span>
-      <span style="font-size:11px;color:#6b6b67;">Exportado vía AISA Trading</span>
-    </div>
-
-    <div class="sec-title">Órdenes Despachadas</div>
-    <div class="orders-grid">
-      <div class="ocard" style="border-left:3px solid #378ADD;">
-        <div class="ocard-top"><span class="oclient" style="color:#185FA5;">Sin órdenes despachadas aún</span></div>
-        <div style="font-size:11px;color:#9a9a96;margin-top:4px;">Primer embarque programado 29 May</div>
-      </div>
-    </div>
-
-    <div class="sec-title">Órdenes por Despachar</div>
-    <div class="orders-grid">
-
-      <div class="ocard" style="border-left:3px solid #378ADD;">
-        <div class="ocard-top"><span class="oclient">HYUNG JIN</span><span class="ometa">REQ 4621 · PF 32<br>OC 28 · 3 cont.<br>AISA Trading</span></div>
-        <div class="ovol">90 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 19.350 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">77×77×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-may">ETD: 29 May</span>
-      </div>
-
-      <div class="ocard" style="border-left:3px solid #378ADD;">
-        <div class="ocard-top"><span class="oclient">DY Global</span><span class="ometa">REQ 4622 · PF 31<br>OC 27 · 7 cont.<br>AISA Trading</span></div>
-        <div class="ovol">210 <span class="ounit">m³</span></div>
-        <div class="oprice-total">USD 45.150 total</div>
-        <table class="esc-table">
-          <tr><td class="esc-name">77×77×4000</td><td class="esc-vol">210 m³</td><td class="esc-cbm cbm-215">$215/m³</td></tr>
-        </table>
-        <span class="pill p-may">ETD: 29 May</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- CRONOGRAMA CONSOLIDADO -->
-  <div class="etd-card">
-    <div class="etd-title">Cronograma de embarques — Volumen consolidado por ETD (m³)</div>
-    <div class="etd-row">
-      <div class="etd-lbl">Dispatched</div>
-      <div class="etd-track"><div class="etd-fill" style="width:100%;background:#1D9E75;color:#085041;">SEJIN 230 · KYEONG LIM 210 · CK WOOD 290 · TS WOOD 270 · NAM CHANG 120 · CK WOOD 120</div></div>
-      <div class="etd-num">1.240 m³</div>
-    </div>
-    <div class="etd-row">
-      <div class="etd-lbl">May</div>
-      <div class="etd-track"><div class="etd-fill" style="width:100%;background:#378ADD;color:#fff;">SEJIN 90 · DAIHYUN 300+360 · TS WOOD 180 · HYUNG JIN 90 · DY Global 210</div></div>
-      <div class="etd-num">1.230 m³</div>
-    </div>
-    <div class="etd-row">
-      <div class="etd-lbl">June</div>
-      <div class="etd-track"><div class="etd-fill" style="width:41%;background:#5DCAA5;color:#04342C;">NAM CHANG 270 · NEW DAELIM 240</div></div>
-      <div class="etd-num">510 m³</div>
-    </div>
-    <div class="etd-row">
-      <div class="etd-lbl">July</div>
-      <div class="etd-track"><div class="etd-fill" style="width:46%;background:#7C3AED;color:#fff;">NAM CHANG 180 · DAIHYUN 180 · Kyeong Lim 210</div></div>
-      <div class="etd-num">570 m³</div>
-    </div>
-    <div class="etd-row">
-      <div class="etd-lbl">August</div>
-      <div class="etd-track"><div class="etd-fill" style="width:75%;background:#D97706;color:#fff;">Kyung Sung 360 + 300 + 270</div></div>
-      <div class="etd-num">930 m³</div>
-    </div>
-    <div class="etd-row">
-      <div class="etd-lbl">September</div>
-      <div class="etd-track"><div class="etd-fill" style="width:46%;background:#DC2626;color:#fff;">NEW DAELIM 210 · Song San 360</div></div>
-      <div class="etd-num">570 m³</div>
-    </div>
-    <div class="etd-row">
-      <div class="etd-lbl">Por definir</div>
-      <div class="etd-track"><div class="etd-fill" style="width:12%;background:#9CA3AF;color:#fff;">CK WOOD 120 · Song San 30</div></div>
-      <div class="etd-num">150 m³</div>
-    </div>
-    <div class="etd-foot">
-      <span>Ya embarcado: <strong>1.240 m³ · USD 292.600</strong></span>
-      <span>Pendiente: <strong>3.960 m³ · USD 873.600</strong></span>
-      <span>Total: <strong>5.200 m³ · USD 1.166.200</strong></span>
-    </div>
-  </div>
-
-  <div class="footer">Exportación Maderas · Korea · 2026</div>
-
+<div class="metrics">
+<div class="metric"><div class="mlabel">Volumen despachado OC</div><div class="mval">6,210</div><div class="msub">m³ según orden · ST + DY</div><div class="msub-real">Real: <strong>5,346.59 m³</strong> <span style="color:#DC2626;font-size:10px;">(-863.41)</span></div></div>
+<div class="metric"><div class="mlabel">Volumen por despachar</div><div class="mval">2,250</div><div class="msub">m³ pendiente</div><div class="msub">ST 1,830 · DY 420 m³</div></div>
+<div class="metric"><div class="mlabel">Facturado OC</div><div class="mval" style="font-size:18px;">$1,382,050</div><div class="msub">USD</div><div class="msub-real">Real: <strong>$1,189,455</strong> <span style="color:#DC2626;font-size:10px;">(-192,595)</span></div></div>
+<div class="metric"><div class="mlabel">Por facturar</div><div class="mval" style="font-size:18px;">$511,650</div><div class="msub">USD · $225–$230/m³</div><div class="macc-blue">ST $417,150 · DY $94,500</div></div>
 </div>
-</body>
-</html>
+
+<div class="client-header"><h2>Silvertree</h2><span class="client-badge cb-st">Cliente</span><span class="client-sub">Exportado vía AISA · AISA Trading</span></div>
+<div class="sec-title">Órdenes Despachadas</div>
+<div class="orders-grid"><div class="ocard"><div class="ocard-top"><span class="oclient">SEJIN</span><span class="ometa">REQ 2501<br>Lead: 59d<br>AISA</span></div><div class="ovol">230 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>229.85 m³</strong> <span style="color:#DC2626;font-size:10px;">(-0.15)</span></div><div class="oprice-total">USD 60,500 OC<span class="usd-real">Real: $60,693 <span style="color:#0F6E56;font-size:10px;">(+193)</span></span></div><table class="esc-table"><tr><td class="esc-name">13×87×1150</td><td class="esc-vol">140 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 143.30</span></td><td class="esc-cbm cbm-280">$280/m³</td></tr><tr><td class="esc-name">16×97×900</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 30.17</span></td><td class="esc-cbm cbm-280">$280/m³</td></tr><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.38</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">KYEONG LIM TIMBER</span><span class="ometa">REQ 2502<br>Lead: 14d<br>AISA</span></div><div class="ovol">210 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>201.64 m³</strong> <span style="color:#DC2626;font-size:10px;">(-8.36)</span></div><div class="oprice-total">USD 45,150 OC<span class="usd-real">Real: $43,353 <span style="color:#DC2626;font-size:10px;">(-1,797)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.38</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.66</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 87.60</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 2503<br>Lead: 25d<br>AISA</span></div><div class="ovol">290 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>284.54 m³</strong> <span style="color:#DC2626;font-size:10px;">(-5.46)</span></div><div class="oprice-total">USD 77,300 OC<span class="usd-real">Real: $75,965 <span style="color:#DC2626;font-size:10px;">(-1,335)</span></span></div><table class="esc-table"><tr><td class="esc-name">13×87×1150</td><td class="esc-vol">140 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 143.30</span></td><td class="esc-cbm cbm-280">$280/m³</td></tr><tr><td class="esc-name">16×97×900</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.16</span></td><td class="esc-cbm cbm-280">$280/m³</td></tr><tr><td class="esc-name">16×97×1200</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.06</span></td><td class="esc-cbm cbm-280">$280/m³</td></tr><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.19</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.83</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">SEJIN</span><span class="ometa">REQ 2504<br>Lead: 140d<br>AISA Trading</span></div><div class="ovol">90 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>86.54 m³</strong> <span style="color:#DC2626;font-size:10px;">(-3.46)</span></div><div class="oprice-total">USD 19,350 OC<span class="usd-real">Real: $18,606 <span style="color:#DC2626;font-size:10px;">(-744)</span></span></div><table class="esc-table"><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.40</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 58.14</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">TS WOOD</span><span class="ometa">REQ 2505<br>Lead: 105d<br>AISA Trading</span></div><div class="ovol">270 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>258.53 m³</strong> <span style="color:#DC2626;font-size:10px;">(-11.47)</span></div><div class="oprice-total">USD 58,050 OC<span class="usd-real">Real: $55,584 <span style="color:#DC2626;font-size:10px;">(-2,466)</span></span></div><table class="esc-table"><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">210 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 201.81</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.72</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 2506<br>Lead: 115d<br>AISA Trading</span></div><div class="ovol">120 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>114.38 m³</strong> <span style="color:#DC2626;font-size:10px;">(-5.62)</span></div><div class="oprice-total">USD 25,800 OC<span class="usd-real">Real: $24,592 <span style="color:#DC2626;font-size:10px;">(-1,208)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.72</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.66</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 2508<br>Lead: 95d<br>AISA Trading</span></div><div class="ovol">120 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>113.56 m³</strong> <span style="color:#DC2626;font-size:10px;">(-6.44)</span></div><div class="oprice-total">USD 25,800 OC<span class="usd-real">Real: $24,415 <span style="color:#DC2626;font-size:10px;">(-1,385)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.36</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.83</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 27.97</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.40</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 2509<br>Lead: 100d<br>AISA Trading</span></div><div class="ovol">300 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>286.37 m³</strong> <span style="color:#DC2626;font-size:10px;">(-13.63)</span></div><div class="oprice-total">USD 64,500 OC<span class="usd-real">Real: $61,570 <span style="color:#DC2626;font-size:10px;">(-2,930)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 85.08</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">46×96×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.68</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 27.97</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.66</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">81×81×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 85.98</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 4607<br>Lead: 39d<br>AISA Trading</span></div><div class="ovol">360 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>343.92 m³</strong> <span style="color:#DC2626;font-size:10px;">(-16.08)</span></div><div class="oprice-total">USD 77,400 OC<span class="usd-real">Real: $73,943 <span style="color:#DC2626;font-size:10px;">(-3,457)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">120 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 113.28</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">81×81×4000</td><td class="esc-vol">120 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 114.72</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 58.32</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.60</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">TS WOOD</span><span class="ometa">REQ 4608<br>Lead: 66d<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>169.44 m³</strong> <span style="color:#DC2626;font-size:10px;">(-10.56)</span></div><div class="oprice-total">USD 38,700 OC<span class="usd-real">Real: $36,430 <span style="color:#DC2626;font-size:10px;">(-2,270)</span></span></div><table class="esc-table"><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.88</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 55.94</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">71×71×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.62</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 4609<br>Lead: 80d<br>AISA Trading</span></div><div class="ovol">270 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>258.24 m³</strong> <span style="color:#DC2626;font-size:10px;">(-11.76)</span></div><div class="oprice-total">USD 58,050 OC<span class="usd-real">Real: $55,522 <span style="color:#DC2626;font-size:10px;">(-2,528)</span></span></div><table class="esc-table"><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 27.96</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">120 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 115.20</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.88</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.16</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.04</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NEW DAELIM</span><span class="ometa">REQ 4610<br>Lead: 66d<br>AISA Trading</span></div><div class="ovol">240 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>228.84 m³</strong> <span style="color:#DC2626;font-size:10px;">(-11.16)</span></div><div class="oprice-total">USD 51,600 OC<span class="usd-real">Real: $49,201 <span style="color:#DC2626;font-size:10px;">(-2,399)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 84.96</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 86.40</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.44</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.04</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4611<br>Lead: 80d<br>AISA Trading</span></div><div class="ovol">360 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>107.04 m³</strong> <span style="color:#DC2626;font-size:10px;">(-252.96)</span></div><div class="oprice-total">USD 81,000 OC<span class="usd-real">Real: $24,084 <span style="color:#DC2626;font-size:10px;">(-56,916)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.64</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³<span style="color:#854F0B;font-size:9px;"> ~ 50.40</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-partial">Partial dispatch</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4612<br>Lead: 66d<br>AISA Trading</span></div><div class="ovol">300 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>75.60 m³</strong> <span style="color:#DC2626;font-size:10px;">(-224.40)</span></div><div class="oprice-total">USD 67,500 OC<span class="usd-real">Real: $17,010 <span style="color:#DC2626;font-size:10px;">(-50,490)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³<span style="color:#854F0B;font-size:9px;"> ~ 75.60</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-partial">Partial dispatch</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4613<br>Lead: 66d<br>AISA Trading</span></div><div class="ovol">270 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>126.00 m³</strong> <span style="color:#DC2626;font-size:10px;">(-144.00)</span></div><div class="oprice-total">USD 60,750 OC<span class="usd-real">Real: $28,350 <span style="color:#DC2626;font-size:10px;">(-32,400)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">120 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 126.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³<span style="color:#DC2626;font-size:9px;"> ✗ 0.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-partial">Partial dispatch</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NEW DAELIM</span><span class="ometa">REQ 4614<br>Lead: 107d<br>AISA Trading</span></div><div class="ovol">210 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>198.12 m³</strong> <span style="color:#DC2626;font-size:10px;">(-11.88)</span></div><div class="oprice-total">USD 47,250 OC<span class="usd-real">Real: $44,577 <span style="color:#DC2626;font-size:10px;">(-2,673)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.64</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.60</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.44</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×96×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 55.44</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Song San Wood</span><span class="ometa">REQ 4615<br>Lead: 107d<br>AISA Trading</span></div><div class="ovol">360 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>344.04 m³</strong> <span style="color:#DC2626;font-size:10px;">(-15.96)</span></div><div class="oprice-total">USD 81,000 OC<span class="usd-real">Real: $77,409 <span style="color:#DC2626;font-size:10px;">(-3,591)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.32</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 55.92</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.80</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 85.32</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">120 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 116.64</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.04</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 4616<br>Lead: 80d<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>171.60 m³</strong> <span style="color:#DC2626;font-size:10px;">(-8.40)</span></div><div class="oprice-total">USD 40,500 OC<span class="usd-real">Real: $38,610 <span style="color:#DC2626;font-size:10px;">(-1,890)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.32</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 86.40</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.88</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 4617<br>Lead: 97d<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>170.88 m³</strong> <span style="color:#DC2626;font-size:10px;">(-9.12)</span></div><div class="oprice-total">USD 40,500 OC<span class="usd-real">Real: $38,448 <span style="color:#DC2626;font-size:10px;">(-2,052)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">120 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 113.28</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.60</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Kyeong Lim Timber and Trading</span><span class="ometa">REQ 4618<br>Lead: 97d<br>AISA Trading</span></div><div class="ovol">210 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>200.52 m³</strong> <span style="color:#DC2626;font-size:10px;">(-9.48)</span></div><div class="oprice-total">USD 47,250 OC<span class="usd-real">Real: $45,117 <span style="color:#DC2626;font-size:10px;">(-2,133)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 84.96</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 86.40</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.16</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 4619<br>Lead: 102d<br>AISA Trading</span></div><div class="ovol">120 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>113.52 m³</strong> <span style="color:#DC2626;font-size:10px;">(-6.48)</span></div><div class="oprice-total">USD 27,000 OC<span class="usd-real">Real: $25,542 <span style="color:#DC2626;font-size:10px;">(-1,458)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.32</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 27.96</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.80</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.44</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Song San Wood</span><span class="ometa">REQ 4620<br>Lead: 25d<br>AISA Trading</span></div><div class="ovol">380 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>369.98 m³</strong> <span style="color:#DC2626;font-size:10px;">(-10.02)</span></div><div class="oprice-total">USD 74,100 OC<span class="usd-real">Real: $72,146 <span style="color:#DC2626;font-size:10px;">(-1,954)</span></span></div><table class="esc-table"><tr><td class="esc-name">66×66×4000</td><td class="esc-vol">80 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 77.18</span></td><td class="esc-cbm cbm-195">$195/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">300 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 292.80</span></td><td class="esc-cbm cbm-195">$195/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 4623<br>Lead: 73d<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>171.84 m³</strong> <span style="color:#DC2626;font-size:10px;">(-8.16)</span></div><div class="oprice-total">USD 40,500 OC<span class="usd-real">Real: $38,664 <span style="color:#DC2626;font-size:10px;">(-1,836)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.64</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 57.60</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.44</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 29.16</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 4624<br>Lead: 73d<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>168.00 m³</strong> <span style="color:#DC2626;font-size:10px;">(-12.00)</span></div><div class="oprice-total">USD 40,500 OC<span class="usd-real">Real: $37,800 <span style="color:#DC2626;font-size:10px;">(-2,700)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 28.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4625<br>Lead: 80d<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>168.00 m³</strong> <span style="color:#DC2626;font-size:10px;">(-12.00)</span></div><div class="oprice-total">USD 40,500 OC<span class="usd-real">Real: $37,800 <span style="color:#DC2626;font-size:10px;">(-2,700)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NEW DAELIM</span><span class="ometa">REQ 4626<br>Lead: 80d<br>AISA Trading</span></div><div class="ovol">120 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>112.00 m³</strong> <span style="color:#DC2626;font-size:10px;">(-8.00)</span></div><div class="oprice-total">USD 27,000 OC<span class="usd-real">Real: $25,200 <span style="color:#DC2626;font-size:10px;">(-1,800)</span></span></div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 56.00</span></td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div></div>
+<div class="sec-title">Órdenes por Despachar</div>
+<div class="orders-grid"><div class="ocard"><div class="ocard-top"><span class="oclient">Kyeong Lim Timber</span><span class="ometa">REQ 4627<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">210 <span class="ounit">m³</span></div><div class="oprice-total">USD 47,250 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-aug">ETD: August</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">TS WOOD</span><span class="ometa">REQ 4628<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">270 <span class="ounit">m³</span></div><div class="oprice-total">USD 60,750 OC</div><table class="esc-table"><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">150 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-aug">ETD: August</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">TS WOOD</span><span class="ometa">REQ 4629<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">270 <span class="ounit">m³</span></div><div class="oprice-total">USD 60,750 OC</div><table class="esc-table"><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">210 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-aug">ETD: August</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">CK WOOD</span><span class="ometa">REQ 4631<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">240 <span class="ounit">m³</span></div><div class="oprice-total">USD 55,200 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr></table><span class="pill p-aug">ETD: August</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NEW DAELIM</span><span class="ometa">REQ 4632<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">210 <span class="ounit">m³</span></div><div class="oprice-total">USD 48,300 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr></table><span class="pill p-aug">ETD: August</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">NAM CHANG</span><span class="ometa">REQ 4633<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">210 <span class="ounit">m³</span></div><div class="oprice-total">USD 48,300 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">116×116×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr></table><span class="pill p-oct">ETD: october</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">Kyung Sung Timber</span><span class="ometa">REQ 4634<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">150 <span class="ounit">m³</span></div><div class="oprice-total">USD 34,500 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr></table><span class="pill p-oct">ETD: october</span></div>
+<div class="ocard"><div class="ocard-top"><span class="oclient">DAIHYUN</span><span class="ometa">REQ 4636<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">270 <span class="ounit">m³</span></div><div class="oprice-total">USD 62,100 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">120 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">90 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr><tr><td class="esc-name">96×96×4000</td><td class="esc-vol">30 m³</td><td class="esc-cbm cbm-230">$230/m³</td></tr></table><span class="pill p-sep">ETD: September</span></div></div>
+
+<div class="client-header"><h2>DY Global</h2><span class="client-badge cb-dy">Cliente</span><span class="client-sub">Exportado vía AISA Trading</span></div>
+<div class="sec-title">Órdenes Despachadas</div>
+<div class="orders-grid"><div class="ocard" style="border-left:3px solid #378ADD;"><div class="ocard-top"><span class="oclient">HYUNG JIN</span><span class="ometa">REQ 4621<br>Lead: 14d<br>AISA Trading</span></div><div class="ovol">90 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>82.08 m³</strong> <span style="color:#DC2626;font-size:10px;">(-7.92)</span></div><div class="oprice-total">USD 19,350 OC<span class="usd-real">Real: $17,647 <span style="color:#DC2626;font-size:10px;">(-1,703)</span></span></div><table class="esc-table"><tr><td class="esc-name">77×77×4000</td><td class="esc-vol">90 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 82.08</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div>
+<div class="ocard" style="border-left:3px solid #378ADD;"><div class="ocard-top"><span class="oclient">DY Global</span><span class="ometa">REQ 4622<br>Lead: 14d<br>AISA Trading</span></div><div class="ovol">210 <span class="ounit">m³ OC</span></div><div class="vol-real">Real: <strong>191.52 m³</strong> <span style="color:#DC2626;font-size:10px;">(-18.48)</span></div><div class="oprice-total">USD 45,150 OC<span class="usd-real">Real: $41,177 <span style="color:#DC2626;font-size:10px;">(-3,973)</span></span></div><table class="esc-table"><tr><td class="esc-name">77×77×4000</td><td class="esc-vol">210 m³<span style="color:#0F6E56;font-size:9px;"> ✓ 191.52</span></td><td class="esc-cbm cbm-215">$215/m³</td></tr></table><span class="pill p-disp">Dispatched</span></div></div>
+<div class="sec-title">Órdenes por Despachar</div>
+<div class="orders-grid"><div class="ocard" style="border-left:3px solid #378ADD;"><div class="ocard-top"><span class="oclient">DY Global</span><span class="ometa">REQ 4630<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">240 <span class="ounit">m³</span></div><div class="oprice-total">USD 54,000 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">46×117×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">86×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">68×117×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-sep">ETD: September</span></div>
+<div class="ocard" style="border-left:3px solid #378ADD;"><div class="ocard-top"><span class="oclient">HYUNG JIN</span><span class="ometa">REQ 4635<br>Lead: n/a<br>AISA Trading</span></div><div class="ovol">180 <span class="ounit">m³</span></div><div class="oprice-total">USD 40,500 OC</div><table class="esc-table"><tr><td class="esc-name">46×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">56×86×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr><tr><td class="esc-name">76×76×4000</td><td class="esc-vol">60 m³</td><td class="esc-cbm cbm-225">$225/m³</td></tr></table><span class="pill p-oct">ETD: october</span></div></div>
+
+<div class="etd-card">
+<div class="etd-title">Cronograma — Órdenes pendientes por ETD (m³ OC)</div>
+<div class="etd-row"><div class="etd-lbl">Dispatched</div><div class="etd-track"><div class="etd-fill" style="width:100%;background:#1D9E75;color:#085041;">SEJIN 230 · KYEONG LIM TIMBER 210 · CK WOOD 290 · SEJIN 90 · TS WOOD 270 · NAM CHANG 120</div></div><div class="etd-num">6,210 m³</div></div>
+<div class="etd-row"><div class="etd-lbl">August</div><div class="etd-track"><div class="etd-fill" style="width:19%;background:#D97706;color:#fff;">Kyeong Lim Timber 210 · TS WOOD 270 · TS WOOD 270 · CK WOOD 240 · NEW DAELIM 210</div></div><div class="etd-num">1,200 m³</div></div>
+<div class="etd-row"><div class="etd-lbl">September</div><div class="etd-track"><div class="etd-fill" style="width:8%;background:#DC2626;color:#fff;">DAIHYUN 270 · DY Global 240</div></div><div class="etd-num">510 m³</div></div>
+<div class="etd-row"><div class="etd-lbl">October</div><div class="etd-track"><div class="etd-fill" style="width:8%;background:#7E22CE;color:#fff;">NAM CHANG 210 · Kyung Sung Timber 150 · HYUNG JIN 180</div></div><div class="etd-num">540 m³</div></div>
+
+<div class="etd-foot">
+<span>Despachado OC: <strong>6,210 m³</strong> · Real: <strong>5,346.59 m³</strong></span>
+<span>Por despachar: <strong>2,250 m³ · $511,650</strong></span>
+<span>Total: <strong>8,460 m³</strong></span>
+</div></div>
+
+<div class="footer">Exportación Maderas · Korea · 05 Aug 2026</div>
+</div></body></html>
