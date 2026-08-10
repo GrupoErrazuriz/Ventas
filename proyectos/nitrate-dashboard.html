@@ -13,7 +13,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .header .sub{font-size:12px;color:#8892b0;margin-top:3px}
 .hbadge{background:#3266ad22;border:1px solid #3266ad55;color:#7eb8f7;font-size:11px;padding:4px 10px;border-radius:12px}
 .main{padding:20px 24px;max-width:1400px;margin:0 auto}
-/* Filters */
 .filters{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .filter-row{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px}
 .filter-row:last-child{margin-bottom:0}
@@ -37,9 +36,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .drop-item{padding:8px 12px;font-size:12px;color:#334155;cursor:pointer}
 .drop-item:hover,.drop-item.hl{background:#f1f5f9}
 .drop-empty{padding:8px 12px;font-size:12px;color:#94a3b8}
+/* País multi-select dropdown */
+.pais-wrap{position:relative;min-width:220px}
+.pais-box{display:flex;flex-wrap:wrap;gap:4px;align-items:center;border:1.5px solid #e2e8f0;border-radius:8px;padding:6px 10px;background:#fff;cursor:pointer;min-height:36px;transition:border .15s;user-select:none}
+.pais-box:focus,.pais-box.open{border-color:#3266ad}
+.pais-placeholder{font-size:12px;color:#94a3b8}
+.pais-tag{display:flex;align-items:center;gap:3px;background:#fdf0e8;color:#c2662a;border-radius:10px;padding:2px 8px;font-size:11px;font-weight:500}
+.pais-tag button{background:none;border:none;cursor:pointer;color:#c2662a;font-size:13px;line-height:1;padding:0}
+.pais-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.1);display:none;overflow:hidden}
+.pais-drop.open{display:block}
+.pais-drop-header{padding:8px 12px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center}
+.pais-drop-header span{font-size:11px;color:#94a3b8}
+.pais-drop-header button{font-size:11px;color:#3266ad;background:none;border:none;cursor:pointer}
+.pais-item{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;font-size:12px;color:#334155}
+.pais-item:hover{background:#f8faff}
+.pais-item input[type=checkbox]{accent-color:#3266ad;width:14px;height:14px;flex-shrink:0}
+.pais-flag{font-size:15px}
 /* KPIs */
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
-.kpi{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);position:relative}
+.kpi{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .kpi.exw{border-top:3px solid #f59e0b}
 .kpi-lbl{font-size:11px;color:#64748b;font-weight:500;margin-bottom:5px}
 .kpi-val{font-size:22px;font-weight:700;color:#1a1a2e;letter-spacing:-.8px;line-height:1}
@@ -57,7 +72,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;font-size:11px;color:#64748b}
 .legend span{display:flex;align-items:center;gap:5px}
 .ldot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-/* Expandable bars */
+/* Bars */
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .bar-lbl{width:130px;font-size:11px;color:#64748b;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bar-track{flex:1;background:#f1f5f9;border-radius:4px;height:14px;overflow:hidden}
@@ -80,30 +95,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .t tr.tot td{font-weight:600;color:#1a1a2e;background:#f8faff;border-top:1px solid #e2e8f0!important}
 .t tr.clickable{cursor:pointer}
 .t tr.clickable:hover td{background:#eef4ff}
-.t tr.active-req td{background:#e8f0ff!important;font-weight:600}
-/* Badges */
 .badge-nop{display:inline-flex;background:#e0eaff;color:#3266ad;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
 .badge-sal{display:inline-flex;background:#fdf0e8;color:#c2662a;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
 .badge-cond{display:inline-flex;background:#f1f5f9;color:#334155;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
 .cnt-bar{display:inline-block;height:8px;border-radius:2px;background:#7c5cbf;vertical-align:middle;margin-left:6px}
-/* Panels */
+/* Panel */
 .req-panel{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:14px;display:none;border-left:4px solid #3266ad}
 .req-panel.visible{display:block}
 .panel-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
 .panel-title{font-size:13px;font-weight:600;color:#334155}
 .panel-sub{font-size:11px;color:#94a3b8;margin-top:2px}
 /* Concentración */
-.conc-bar{height:20px;border-radius:6px;overflow:hidden;display:flex;margin:10px 0 6px}
-.conc-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;transition:width .4s;min-width:0;overflow:hidden;white-space:nowrap}
+.conc-bar{height:22px;border-radius:6px;overflow:hidden;display:flex;margin:10px 0 8px}
+.conc-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;min-width:0;overflow:hidden;white-space:nowrap;transition:width .4s}
 .conc-legend{display:flex;flex-wrap:wrap;gap:8px;font-size:11px;color:#64748b}
 .conc-legend span{display:flex;align-items:center;gap:4px}
-/* Margen bajo alert */
 .mg-low{color:#dc2626!important;font-weight:600}
 @media(max-width:900px){
   .kpi-grid{grid-template-columns:1fr 1fr}
   .row2,.row2b{grid-template-columns:1fr}
   .filter-row{flex-direction:column}
-  .ac-wrap{width:100%}
+  .ac-wrap,.pais-wrap{width:100%}
 }
 </style>
 </head>
@@ -175,13 +187,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div id="dropReq" class="drop" style="display:none"></div>
       </div>
     </div>
+    <div class="fg">
+      <div class="fl">País destino</div>
+      <div class="pais-wrap" id="paisWrap">
+        <div class="pais-box" id="paisBox" onclick="togglePaisDrop()">
+          <div id="paisTags"><span class="pais-placeholder">Todos los países</span></div>
+          <svg style="margin-left:auto;flex-shrink:0;transition:transform .2s" id="paisArrow" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="#94a3b8" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pais-drop" id="paisDrop">
+          <div class="pais-drop-header">
+            <span id="paisCount">0 seleccionados</span>
+            <button onclick="clearPaises()">Limpiar</button>
+          </div>
+          <div id="paisList"></div>
+        </div>
+      </div>
+    </div>
     <div class="fg" style="justify-content:flex-end;flex:1;align-items:flex-end">
       <button onclick="clearAll()" style="padding:7px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:12px;color:#64748b">↺ Limpiar filtros</button>
     </div>
   </div>
 </div>
 
-<!-- KPIs con delta -->
+<!-- KPIs -->
 <div class="kpi-grid">
   <div class="kpi"><div class="kpi-lbl">Toneladas totales</div><div class="kpi-val" id="kTon">—</div><div class="kpi-sub" id="kTonSub"></div><div id="dTon"></div></div>
   <div class="kpi"><div class="kpi-lbl">Ingresos totales</div><div class="kpi-val" id="kUSD">—</div><div class="kpi-sub">USD · precio venta</div><div id="dUSD"></div></div>
@@ -207,15 +235,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- Gráfico toneladas + concentración de cartera -->
+<!-- Gráfico toneladas + concentración -->
 <div class="row2">
   <div class="card-nm">
-    <div class="card-title">Toneladas por mes<span style="font-size:10px;font-weight:400;color:#94a3b8">NOP + Salitre apilados</span></div>
+    <div class="card-title">Toneladas por mes <span style="font-size:10px;font-weight:400;color:#94a3b8">NOP + Salitre apilados</span></div>
     <div class="legend" id="legMes"></div>
     <div style="position:relative;height:220px"><canvas id="cMes"></canvas></div>
   </div>
   <div class="card-nm">
-    <div class="card-title">Concentración de cartera<span style="font-size:10px;font-weight:400;color:#94a3b8">% ingresos por cliente</span></div>
+    <div class="card-title">Concentración de cartera <span style="font-size:10px;font-weight:400;color:#94a3b8">% ingresos por cliente</span></div>
     <div id="concChart"></div>
     <div id="concWarning" style="margin-top:10px;font-size:11px;color:#64748b"></div>
   </div>
@@ -224,7 +252,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- Margen e ingresos por cliente -->
 <div class="row2b">
   <div class="card-nm">
-    <div class="card-title">Ranking de clientes por margen pond.<span style="font-size:10px;font-weight:400;color:#94a3b8">USD/MT · rojo = bajo $120</span></div>
+    <div class="card-title">Ranking clientes por margen pond. <span style="font-size:10px;font-weight:400;color:#94a3b8">USD/MT · rojo = bajo $120</span></div>
     <div id="bMgCli"></div>
   </div>
   <div class="card-nm">
@@ -233,7 +261,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- Evolución precio y margen mensual -->
+<!-- Precio y margen por familia -->
 <div class="row2b">
   <div class="card-nm">
     <div class="card-title">Precio pond. mensual — NOP (USD/MT)</div>
@@ -244,7 +272,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div style="position:relative;height:160px"><canvas id="cPrecioSAL"></canvas></div>
   </div>
 </div>
-
 <div class="row2b">
   <div class="card-nm">
     <div class="card-title">Margen pond. mensual — NOP (USD/MT)</div>
@@ -269,14 +296,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="card-nm" style="margin-bottom:14px">
-  <div class="card-title">Contenedores por requerimiento <span style="font-size:10px;color:#94a3b8;font-weight:400">(clic para ver detalle)</span></div>
+  <div class="card-title">Contenedores por requerimiento <span style="font-size:10px;color:#94a3b8;font-weight:400">(expandible)</span></div>
   <div class="t-wrap"><table class="t">
     <thead><tr><th>Req.</th><th>Cliente</th><th>País</th><th>Producto</th><th>Condición</th><th>Puerto</th><th>Empaque</th><th class="r">Cont.</th><th class="r">MT</th></tr></thead>
     <tbody id="cntReqBody"></tbody>
   </table>
   <button class="expand-btn" id="cntReqBtn" onclick="toggleCntReq()" style="display:none">
-    <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-    Ver más
+    <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Ver más
   </button>
   </div>
 </div>
@@ -291,12 +317,67 @@ const FLAGS={CHILE:'🇨🇱',BRAZIL:'🇧🇷',ARGENTINA:'🇦🇷',INDONESIA:'
 const CLI_COLORS=['#3266ad','#1d9e75','#e07b39','#7c5cbf','#e74c3c','#f39c12','#16a085','#8e44ad','#2980b9','#27ae60'];
 const ALL_CLI=[...new Set(RAW.map(r=>r.alias))].sort();
 const ALL_REQ=[...new Set(RAW.map(r=>r.req))].sort((a,b)=>+a-+b);
+const ALL_PAISES=[...new Set(RAW.map(r=>r.p))].sort();
+const MG_LOW=120;
+
 let anioSel='todos',mesSel=0,famSel='';
-let selCli=new Set(),selReq=new Set();
-let activeReq=null;
+let selCli=new Set(),selReq=new Set(),selPais=new Set();
 let chMes,chPNOP,chPSAL,chMNOP,chMSAL;
 let cntReqAllRows=[],cntReqExpanded=false;
-const MG_LOW=120; // umbral margen bajo USD/MT
+
+// ── País dropdown ─────────────────────────────────────────────────────────────
+function buildPaisList(){
+  const list=document.getElementById('paisList');
+  list.innerHTML=ALL_PAISES.map(p=>`
+    <div class="pais-item" onclick="togglePais('${p}',event)">
+      <input type="checkbox" id="chk_${p}" ${selPais.has(p)?'checked':''} onclick="togglePais('${p}',event)">
+      <span class="pais-flag">${FLAGS[p]||'🌐'}</span>
+      <span>${p.charAt(0)+p.slice(1).toLowerCase()}</span>
+    </div>`).join('');
+}
+function togglePaisDrop(){
+  const drop=document.getElementById('paisDrop');
+  const arrow=document.getElementById('paisArrow');
+  const box=document.getElementById('paisBox');
+  const open=drop.classList.toggle('open');
+  box.classList.toggle('open',open);
+  arrow.style.transform=open?'rotate(180deg)':'';
+  if(open) buildPaisList();
+}
+function togglePais(p,e){
+  e.stopPropagation();
+  if(selPais.has(p)) selPais.delete(p);
+  else selPais.add(p);
+  document.getElementById('chk_'+p).checked=selPais.has(p);
+  renderPaisTags();
+  updateAll();
+}
+function renderPaisTags(){
+  const tags=document.getElementById('paisTags');
+  const count=document.getElementById('paisCount');
+  count.textContent=`${selPais.size} seleccionados`;
+  if(selPais.size===0){
+    tags.innerHTML='<span class="pais-placeholder">Todos los países</span>';
+  } else {
+    tags.innerHTML=[...selPais].map(p=>
+      `<span class="pais-tag">${FLAGS[p]||''} ${p.charAt(0)+p.slice(1).toLowerCase()}<button onclick="removePais('${p}',event)">×</button></span>`
+    ).join('');
+  }
+}
+function removePais(p,e){
+  e.stopPropagation();selPais.delete(p);
+  renderPaisTags();buildPaisList();updateAll();
+}
+function clearPaises(){selPais.clear();renderPaisTags();buildPaisList();updateAll();}
+
+// Close dropdown on outside click
+document.addEventListener('click',e=>{
+  if(!document.getElementById('paisWrap').contains(e.target)){
+    document.getElementById('paisDrop').classList.remove('open');
+    document.getElementById('paisBox').classList.remove('open');
+    document.getElementById('paisArrow').style.transform='';
+  }
+});
 
 // ── Autocomplete ──────────────────────────────────────────────────────────────
 function setupAC(inpId,dropId,tagsId,selSet,allItems,onChange){
@@ -340,27 +421,29 @@ function setAnio(el){
 function setFam(el){document.querySelectorAll('#pFam .pill').forEach(p=>p.className='pill');el.classList.add('on-fam');famSel=el.dataset.v;updateAll();}
 function setMes(el){document.querySelectorAll('#pMes .pill').forEach(p=>p.className='pill');el.classList.add('on-mes');mesSel=parseInt(el.dataset.v);updateAll();}
 function clearAll(){
-  anioSel='todos';mesSel=0;famSel='';activeReq=null;
+  anioSel='todos';mesSel=0;famSel='';selPais.clear();
   document.querySelectorAll('#pAnio .pill').forEach((p,i)=>p.className=i===0?'pill on-y25':'pill');
   document.querySelectorAll('#pFam .pill').forEach((p,i)=>p.className=i===0?'pill on-fam':'pill');
   document.querySelectorAll('#pMes .pill').forEach((p,i)=>p.className=i===0?'pill on-mes':'pill');
   document.getElementById('inCli').value='';document.getElementById('inReq').value='';
-  acCli.clear();acReq.clear();updateAll();
+  acCli.clear();acReq.clear();renderPaisTags();buildPaisList();updateAll();
 }
 
 // ── Filters ───────────────────────────────────────────────────────────────────
-function getFiltered(overrides={}){
-  const y=overrides.y!==undefined?overrides.y:anioSel;
-  const m=overrides.m!==undefined?overrides.m:mesSel;
-  const f=overrides.f!==undefined?overrides.f:famSel;
-  const cli=overrides.cli!==undefined?overrides.cli:selCli;
-  const req=overrides.req!==undefined?overrides.req:selReq;
+function getFiltered(ov={}){
+  const y=ov.y!==undefined?ov.y:anioSel;
+  const m=ov.m!==undefined?ov.m:mesSel;
+  const f=ov.f!==undefined?ov.f:famSel;
+  const cli=ov.cli!==undefined?ov.cli:selCli;
+  const req=ov.req!==undefined?ov.req:selReq;
+  const pais=ov.pais!==undefined?ov.pais:selPais;
   return RAW.filter(r=>{
     if(y!=='todos'&&r.y!==y) return false;
     if(m&&r.m!==m) return false;
     if(f&&r.f!==f) return false;
     if(cli.size&&!cli.has(r.alias)) return false;
     if(req.size&&!req.has(r.req)) return false;
+    if(pais.size&&!pais.has(r.p)) return false;
     return true;
   });
 }
@@ -380,103 +463,79 @@ function deltaHTML(p){
   if(p===null) return '';
   const cls=p>0?'delta-up':p<0?'delta-dn':'delta-flat';
   const arrow=p>0?'↑':p<0?'↓':'→';
-  return `<span class="kpi-delta ${cls}">${arrow} ${Math.abs(p).toFixed(1)}% vs período ant.</span>`;
+  return `<span class="kpi-delta ${cls}">${arrow} ${Math.abs(p).toFixed(1)}% vs año ant.</span>`;
 }
-
-// Calcula el período de comparación (mismo período año anterior)
 function getCompPeriod(){
-  if(anioSel==='todos') return null; // no aplica para todos
+  if(anioSel==='todos') return null;
   const prevYear=anioSel-1;
-  // si hay filtro de mes, comparar mismo mes año anterior
-  // si no hay filtro de mes, comparar mismos meses disponibles del año actual vs año anterior
-  if(mesSel){
-    return getFiltered({y:prevYear,m:mesSel});
-  } else {
-    // meses que existen en el año seleccionado
-    const mesesActuales=[...new Set(getFiltered().map(r=>r.m))];
-    return RAW.filter(r=>r.y===prevYear&&mesesActuales.includes(r.m)&&
-      (famSel?r.f===famSel:true)&&
-      (selCli.size?selCli.has(r.alias):true)&&
-      (selReq.size?selReq.has(r.req):true));
-  }
+  const mesesActuales=[...new Set(getFiltered().map(r=>r.m))];
+  return RAW.filter(r=>r.y===prevYear&&mesesActuales.includes(r.m)
+    &&(famSel?r.f===famSel:true)
+    &&(selCli.size?selCli.has(r.alias):true)
+    &&(selReq.size?selReq.has(r.req):true)
+    &&(selPais.size?selPais.has(r.p):true));
 }
 
 // ── Expandable bars ───────────────────────────────────────────────────────────
-function buildExpandableBars(containerId,data,color,btnId,unit='MT',mgMode=false){
+function buildExpandableBars(cid,data,color,btnId,unit='MT',mgMode=false){
   const entries=Object.entries(data).filter(([,v])=>v>0||mgMode).sort((a,b)=>b[1]-a[1]);
   const vals=entries.map(([,v])=>v);
-  const mx=Math.max(...vals,1);
-  const mn=Math.min(...vals,0);
-  const range=mx-mn||1;
-
-  function makeRow([k,v],idx){
+  const mx=Math.max(...vals,1),mn=Math.min(...vals,0),range=mx-mn||1;
+  function makeRow([k,v]){
     const w=mgMode?((v-mn)/range*100).toFixed(1):(v/mx*100).toFixed(1);
     const col=mgMode?(v<MG_LOW?'#ef4444':'#1d9e75'):color;
     const valTxt=mgMode?`$${v.toFixed(0)}/MT`:`${Math.round(v).toLocaleString()} ${unit}`;
-    const mgClass=mgMode&&v<MG_LOW?' mg-low':'';
     return `<div class="bar-row">
       <div class="bar-lbl" title="${k}">${k}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${col}"></div></div>
-      <div class="bar-val${mgClass}">${valTxt}</div>
+      <div class="bar-val${mgMode&&v<MG_LOW?' mg-low':''}">${valTxt}</div>
     </div>`;
   }
-
-  const top8=entries.slice(0,8);
-  const rest=entries.slice(8);
-  let html=top8.map((e,i)=>makeRow(e,i)).join('');
+  const top8=entries.slice(0,8),rest=entries.slice(8);
+  let html=top8.map(makeRow).join('');
   if(rest.length>0){
-    const rid=btnId+'_rows';
-    html+=`<div class="hidden-rows" id="${rid}">${rest.map((e,i)=>makeRow(e,i+8)).join('')}</div>
+    const rid=btnId+'_r';
+    html+=`<div class="hidden-rows" id="${rid}">${rest.map(makeRow).join('')}</div>
     <button class="expand-btn" id="${btnId}" onclick="toggleExpand('${btnId}','${rid}')">
       <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Ver ${rest.length} más
     </button>`;
   }
-  document.getElementById(containerId).innerHTML=html;
+  document.getElementById(cid).innerHTML=html;
 }
 function toggleExpand(btnId,rowsId){
   const btn=document.getElementById(btnId),rows=document.getElementById(rowsId);
   const open=rows.classList.toggle('open');
   btn.classList.toggle('open',open);
   const n=rows.querySelectorAll('.bar-row').length;
-  const svg=btn.querySelector('svg').outerHTML;
-  btn.innerHTML=svg+(open?` Ocultar`:` Ver ${n} más`);
+  btn.innerHTML=`<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> ${open?'Ocultar':'Ver '+n+' más'}`;
 }
 
-// ── Concentración de cartera ──────────────────────────────────────────────────
+// ── Concentración ─────────────────────────────────────────────────────────────
 function buildConcentracion(fd){
   const cliUSD={};
   fd.forEach(r=>cliUSD[r.alias]=(cliUSD[r.alias]||0)+r.usd);
   const total=Object.values(cliUSD).reduce((s,v)=>s+v,0);
   if(!total){document.getElementById('concChart').innerHTML='<p style="font-size:12px;color:#94a3b8;padding:20px 0">Sin datos</p>';return;}
   const sorted=Object.entries(cliUSD).sort((a,b)=>b[1]-a[1]);
-  const top5=sorted.slice(0,5);
-  const otrosUSD=sorted.slice(5).reduce((s,[,v])=>s+v,0);
-  const items=[...top5];
-  if(otrosUSD>0) items.push(['Otros',otrosUSD]);
-
+  const top5=sorted.slice(0,5),otrosUSD=sorted.slice(5).reduce((s,[,v])=>s+v,0);
+  const items=[...top5];if(otrosUSD>0)items.push(['Otros',otrosUSD]);
   const segs=items.map(([k,v],i)=>{
-    const p=(v/total*100);
-    const col=i<CLI_COLORS.length?CLI_COLORS[i]:'#94a3b8';
-    const label=p>6?`${p.toFixed(0)}%`:'';
+    const p=(v/total*100),col=CLI_COLORS[i]||'#94a3b8',label=p>6?`${p.toFixed(0)}%`:'';
     return `<div class="conc-seg" style="width:${p.toFixed(2)}%;background:${col}" title="${k}: ${p.toFixed(1)}%">${label}</div>`;
   }).join('');
-
   const leg=items.map(([k,v],i)=>{
-    const p=(v/total*100).toFixed(1);
-    const col=i<CLI_COLORS.length?CLI_COLORS[i]:'#94a3b8';
+    const p=(v/total*100).toFixed(1),col=CLI_COLORS[i]||'#94a3b8';
     return `<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${col}"></span>${k} ${p}%</span>`;
   }).join('');
-
   const top3pct=top5.slice(0,3).reduce((s,[,v])=>s+v/total*100,0);
   const warn=top3pct>70
     ?`⚠️ Top 3 clientes concentran <strong>${top3pct.toFixed(0)}%</strong> de ingresos — riesgo de dependencia`
     :`✅ Top 3 clientes: <strong>${top3pct.toFixed(0)}%</strong> de ingresos`;
-
   document.getElementById('concChart').innerHTML=`<div class="conc-bar">${segs}</div><div class="conc-legend">${leg}</div>`;
   document.getElementById('concWarning').innerHTML=warn;
 }
 
-// ── Req panel (cliente) ───────────────────────────────────────────────────────
+// ── Req panel ─────────────────────────────────────────────────────────────────
 function updateReqPanel(fd){
   const panel=document.getElementById('reqPanel');
   if(selCli.size===0){panel.classList.remove('visible');return;}
@@ -491,18 +550,16 @@ function updateReqPanel(fd){
   document.getElementById('reqPanelSub').textContent=`${reqs.length} req. · ${Math.round(totTon).toLocaleString()} MT · ${fmt(totUSD)} · ${totCnt.toLocaleString()} cont.`;
   const tbody=document.getElementById('reqTableBody');
   tbody.innerHTML=reqs.map(r=>{
-    const pv=r.ton>0?(r.pvWt/r.ton).toFixed(1):'-';
-    const mg=r.ton>0?(r.mgWt/r.ton).toFixed(1):'-';
+    const pv=r.ton>0?(r.pvWt/r.ton).toFixed(1):'-',mg=r.ton>0?(r.mgWt/r.ton).toFixed(1):'-';
     const mgN=r.ton>0?r.mgWt/r.ton:999;
-    const shortProd=r.prod.length>26?r.prod.substring(0,24)+'…':r.prod;
+    const shortProd=r.prod.length>24?r.prod.substring(0,22)+'…':r.prod;
     return `<tr class="clickable">
       <td><strong>#${r.req}</strong></td>
       <td><span class="${r.f==='NOP'?'badge-nop':'badge-sal'}">${r.f}</span></td>
       <td>${FLAGS[r.p]||''} ${r.p}</td>
       <td title="${r.prod}">${shortProd}</td>
       <td><span class="badge-cond">${r.cond}</span></td>
-      <td>${r.port||'—'}</td>
-      <td>${r.pack}</td>
+      <td>${r.port||'—'}</td><td>${r.pack}</td>
       <td class="r">${r.cnt.toLocaleString()}</td>
       <td class="r">${Math.round(r.ton).toLocaleString()} MT</td>
       <td class="r">${fmt(r.usd)}</td>
@@ -516,45 +573,41 @@ function updateReqPanel(fd){
   panel.classList.add('visible');
 }
 
-// ── Cnt req table ─────────────────────────────────────────────────────────────
+// ── Cnt req ───────────────────────────────────────────────────────────────────
 function toggleCntReq(){cntReqExpanded=!cntReqExpanded;renderCntReqTable();}
 function renderCntReqTable(){
   const btn=document.getElementById('cntReqBtn');
   const rows=cntReqExpanded?cntReqAllRows:cntReqAllRows.slice(0,8);
   const mx=cntReqAllRows[0]?.cnt||1;
-  const totCnt=cntReqAllRows.reduce((s,r)=>s+r.cnt,0);
-  const totTon=cntReqAllRows.reduce((s,r)=>s+r.ton,0);
+  const totCnt=cntReqAllRows.reduce((s,r)=>s+r.cnt,0),totTon=cntReqAllRows.reduce((s,r)=>s+r.ton,0);
   const tbody=document.getElementById('cntReqBody');
-  tbody.innerHTML=rows.map(r=>`<tr class="clickable cnt-req-row" data-req="${r.req}">
+  tbody.innerHTML=rows.map(r=>`<tr class="clickable">
     <td><strong>#${r.req}</strong></td>
-    <td style="max-width:100px;overflow:hidden;text-overflow:ellipsis" title="${r.alias}">${r.alias}</td>
+    <td style="max-width:90px;overflow:hidden;text-overflow:ellipsis" title="${r.alias}">${r.alias}</td>
     <td>${FLAGS[r.p]||'🌐'} ${r.p}</td>
-    <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis" title="${r.prod}">${r.prod.length>22?r.prod.substring(0,20)+'…':r.prod}</td>
+    <td style="max-width:110px;overflow:hidden;text-overflow:ellipsis" title="${r.prod}">${r.prod.length>20?r.prod.substring(0,18)+'…':r.prod}</td>
     <td><span class="badge-cond">${r.cond}</span></td>
-    <td>${r.port||'—'}</td>
-    <td>${r.pack}</td>
+    <td>${r.port||'—'}</td><td>${r.pack}</td>
     <td class="r">${r.cnt.toLocaleString()}<span class="cnt-bar" style="width:${(r.cnt/mx*50).toFixed(0)}px"></span></td>
     <td class="r">${Math.round(r.ton).toLocaleString()} MT</td>
   </tr>`).join('');
   tbody.innerHTML+=`<tr class="tot"><td colspan="7">Total (${cntReqAllRows.length} reqs.)</td><td class="r">${totCnt.toLocaleString()}</td><td class="r">${Math.round(totTon).toLocaleString()} MT</td></tr>`;
   if(cntReqAllRows.length>8){
-    const hidden=cntReqAllRows.length-8;
-    btn.style.display='flex';
-    btn.classList.toggle('open',cntReqExpanded);
+    const h=cntReqAllRows.length-8;
+    btn.style.display='flex';btn.classList.toggle('open',cntReqExpanded);
     const svg='<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>';
-    btn.innerHTML=svg+(cntReqExpanded?' Ocultar':` Ver ${hidden} más`);
+    btn.innerHTML=svg+(cntReqExpanded?' Ocultar':` Ver ${h} más`);
   } else btn.style.display='none';
 }
 
-// ── Line chart helper ─────────────────────────────────────────────────────────
+// ── Line chart ────────────────────────────────────────────────────────────────
 function buildLineChart(canvasId,familia,field,fd,years){
   const el=document.getElementById(canvasId);
-  if(el._chart) el._chart.destroy();
+  if(el._chart)el._chart.destroy();
   const ds=years.map(y=>({
     label:String(y),
     data:Array.from({length:12},(_,i)=>{
-      const m=i+1;
-      const rr=fd.filter(r=>r.y===y&&r.m===m&&(familia?r.f===familia:true));
+      const m=i+1,rr=fd.filter(r=>r.y===y&&r.m===m&&(familia?r.f===familia:true));
       const t=rr.reduce((s,r)=>s+r.ton,0);
       return t>0?+(rr.reduce((s,r)=>s+r[field]*r.ton,0)/t).toFixed(1):null;
     }),
@@ -569,11 +622,9 @@ function buildLineChart(canvasId,familia,field,fd,years){
   });
 }
 
-// ── Main update ───────────────────────────────────────────────────────────────
+// ── Main ──────────────────────────────────────────────────────────────────────
 function updateAll(){
   const fd=getFiltered();
-
-  // KPIs actuales
   const kpi=calcKPIs(fd);
   document.getElementById('kTon').textContent=Math.round(kpi.ton).toLocaleString('es');
   document.getElementById('kTonSub').textContent=mesSel?MESES[mesSel]:anioSel==='todos'?'2025–2026':anioSel===2026?'Ene–Jul 2026':'Año completo';
@@ -582,52 +633,40 @@ function updateAll(){
   document.getElementById('kPrecio').textContent='$'+Math.round(kpi.pv);
   document.getElementById('kMargen').textContent='$'+Math.round(kpi.mg);
 
-  // Deltas vs período anterior
   const comp=getCompPeriod();
   if(comp&&comp.length>0){
-    const kpiComp=calcKPIs(comp);
-    document.getElementById('dTon').innerHTML=deltaHTML(pct(kpi.ton,kpiComp.ton));
-    document.getElementById('dUSD').innerHTML=deltaHTML(pct(kpi.usd,kpiComp.usd));
-    document.getElementById('dEXW').innerHTML=deltaHTML(pct(kpi.exw,kpiComp.exw));
-    document.getElementById('dPrecio').innerHTML=deltaHTML(pct(kpi.pv,kpiComp.pv));
-    document.getElementById('dMargen').innerHTML=deltaHTML(pct(kpi.mg,kpiComp.mg));
-  } else {
-    ['dTon','dUSD','dEXW','dPrecio','dMargen'].forEach(id=>document.getElementById(id).innerHTML='');
-  }
+    const kc=calcKPIs(comp);
+    document.getElementById('dTon').innerHTML=deltaHTML(pct(kpi.ton,kc.ton));
+    document.getElementById('dUSD').innerHTML=deltaHTML(pct(kpi.usd,kc.usd));
+    document.getElementById('dEXW').innerHTML=deltaHTML(pct(kpi.exw,kc.exw));
+    document.getElementById('dPrecio').innerHTML=deltaHTML(pct(kpi.pv,kc.pv));
+    document.getElementById('dMargen').innerHTML=deltaHTML(pct(kpi.mg,kc.mg));
+  } else ['dTon','dUSD','dEXW','dPrecio','dMargen'].forEach(id=>document.getElementById(id).innerHTML='');
 
   updateReqPanel(fd);
   buildConcentracion(fd);
 
-  // Margen por cliente
   const cliMg={},cliTon={},cliMgWt={};
-  fd.forEach(r=>{
-    cliTon[r.alias]=(cliTon[r.alias]||0)+r.ton;
-    cliMgWt[r.alias]=(cliMgWt[r.alias]||0)+r.mg*r.ton;
-  });
+  fd.forEach(r=>{cliTon[r.alias]=(cliTon[r.alias]||0)+r.ton;cliMgWt[r.alias]=(cliMgWt[r.alias]||0)+r.mg*r.ton;});
   Object.keys(cliTon).forEach(k=>cliMg[k]=cliTon[k]>0?cliMgWt[k]/cliTon[k]:0);
   buildExpandableBars('bMgCli',cliMg,'#1d9e75','btnMgCli','MT',true);
 
-  // Vol clientes y países
   const cliMap={},pMap={};
   fd.forEach(r=>{cliMap[r.alias]=(cliMap[r.alias]||0)+r.ton;pMap[r.p]=(pMap[r.p]||0)+r.ton;});
   buildExpandableBars('bCli',cliMap,'#3266ad','btnCli');
   buildExpandableBars('bPais',pMap,'#1d9e75','btnPais');
 
-  // Contenedores por país
-  const seen=new Set(),cntPais={};
-  fd.forEach(r=>{if(!seen.has(r.req)){seen.add(r.req);cntPais[r.p]=(cntPais[r.p]||0)+r.cnt;}});
+  const seenP=new Set(),cntPais={};
+  fd.forEach(r=>{if(!seenP.has(r.req)){seenP.add(r.req);cntPais[r.p]=(cntPais[r.p]||0)+r.cnt;}});
   buildExpandableBars('bCntPais',cntPais,'#7c5cbf','btnCntPais','cont.');
 
-  // Cnt req table
-  const seen2=new Set();
-  cntReqAllRows=[];
+  const seen2=new Set();cntReqAllRows=[];
   fd.forEach(r=>{if(!seen2.has(r.req)){seen2.add(r.req);cntReqAllRows.push({req:r.req,alias:r.alias,p:r.p,cnt:r.cnt,prod:r.prod,cond:r.cond,port:r.port,pack:r.pack,ton:0});}});
   const tonMap={};fd.forEach(r=>tonMap[r.req]=(tonMap[r.req]||0)+r.ton);
   cntReqAllRows.forEach(r=>r.ton=tonMap[r.req]||0);
   cntReqAllRows.sort((a,b)=>b.cnt-a.cnt);
   renderCntReqTable();
 
-  // Gráfico toneladas apilado
   const years=anioSel==='todos'?[2025,2026]:[anioSel];
   const fams=famSel?[famSel]:['NOP','SALITRE'];
   const yColors={2025:{NOP:'#3266ad',SALITRE:'#e07b39'},2026:{NOP:'#1d9e75',SALITRE:'#f0a96e'}};
@@ -643,9 +682,7 @@ function updateAll(){
       backgroundColor:yColors[y][f],borderRadius:2,stack:`s${y}`
     });
   }));
-  const legItems=[];
-  years.forEach(y=>fams.forEach(f=>legItems.push(`<span><span class="ldot" style="background:${yColors[y][f]}"></span>${y} ${f}</span>`)));
-  document.getElementById('legMes').innerHTML=legItems.join('');
+  document.getElementById('legMes').innerHTML=years.flatMap(y=>fams.map(f=>`<span><span class="ldot" style="background:${yColors[y][f]}"></span>${y} ${f}</span>`)).join('');
   if(chMes)chMes.destroy();
   chMes=new Chart(document.getElementById('cMes'),{
     type:'bar',data:{labels:MESES.slice(1),datasets},
@@ -655,7 +692,6 @@ function updateAll(){
         y:{stacked:true,ticks:{font:{size:10},callback:v=>v?.toLocaleString()},grid:{color:'#f1f5f9'}}}}
   });
 
-  // Gráficos precio y margen por familia
   buildLineChart('cPrecioNOP','NOP','pv',fd,years);
   buildLineChart('cPrecioSAL','SALITRE','pv',fd,years);
   buildLineChart('cMgNOP','NOP','mg',fd,years);
