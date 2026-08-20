@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifiesto de Costos — Yodo CSY EU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #1B1922;
+    --bg-panel: #232030;
+    --bg-panel-2: #2A2637;
+    --line: #3A3548;
+    --ink: #EEEAF6;
+    --ink-dim: #A79FC0;
+    --ink-faint: #756C8C;
+    --iodine: #A377E8;
+    --iodine-soft: #6B4FA0;
+    --iodine-glow: #C9A8FF;
+    --c-port: #E0A458;
+    --c-transit: #6FA3D8;
+    --c-wh: #7FB88F;
+    --c-final: #D08494;
+    --c-fixed: #8C8FBF;
+    --c-commission: #4FB8AE;
+    --radius: 10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(163,119,232,0.16), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+
+  .wrap{max-width:1200px; margin:0 auto; padding:32px 24px 80px;}
+
+  /* HERO */
+  .hero{
+    display:flex; flex-wrap:wrap; gap:32px; align-items:flex-end; justify-content:space-between;
+    padding-bottom:28px; margin-bottom:28px; border-bottom:1px solid var(--line);
+  }
+  .hero-left .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--iodine-glow); margin-bottom:10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--iodine-glow); box-shadow:0 0 8px var(--iodine-glow);}
+  .hero-left h1{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(28px, 4vw, 42px);
+    margin:0 0 8px; letter-spacing:-0.01em; line-height:1.05;
+  }
+  .hero-left p{color:var(--ink-dim); margin:0; font-size:14.5px; max-width:520px; line-height:1.5;}
+
+  .hero-total{
+    position:relative; padding:18px 26px; border-radius:var(--radius);
+    background: linear-gradient(155deg, var(--bg-panel-2), var(--bg-panel));
+    border:1px solid var(--line);
+    min-width:230px;
+    overflow:hidden;
+  }
+  .hero-total::before{
+    content:''; position:absolute; inset:-40%; 
+    background: radial-gradient(circle, rgba(163,119,232,0.35), transparent 65%);
+    animation: vapor 7s ease-in-out infinite;
+  }
+  @keyframes vapor{
+    0%,100%{ transform: translate(-8%,-4%) scale(1); opacity:.55;}
+    50%{ transform: translate(6%,6%) scale(1.15); opacity:.9;}
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-total::before{animation:none;} }
+  .hero-total .label{position:relative; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:6px;}
+  .hero-total .value{position:relative; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:32px; color:var(--ink);}
+  .hero-total .sub{position:relative; font-size:12.5px; color:var(--iodine-glow); margin-top:4px; font-family:'IBM Plex Mono',monospace;}
+  .calc-note{
+    font-size:11px; line-height:1.45; color:var(--ink-faint); font-family:'Inter',sans-serif;
+    margin-top:8px; padding-top:8px; border-top:1px dashed var(--line);
+  }
+  .hero-total .calc-note{border-top-color:rgba(255,255,255,0.12);}
+
+  /* FILTERS */
+  .filters{
+    display:flex; flex-direction:column; gap:12px; margin-bottom:24px;
+  }
+  .filter-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+  .filter-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-faint); min-width:52px;
+  }
+  .pillgroup{display:flex; gap:6px; flex-wrap:wrap;}
+  .pill{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; padding:7px 13px; border-radius:100px;
+    border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-dim); cursor:pointer;
+    transition:all .15s ease;
+  }
+  .pill:hover{border-color:var(--iodine-soft); color:var(--ink);}
+  .pill.active{background:var(--iodine-soft); border-color:var(--iodine-soft); color:#fff;}
+  .pill:focus-visible, select:focus-visible, input:focus-visible, th button:focus-visible{
+    outline:2px solid var(--iodine-glow); outline-offset:2px;
+  }
+  select, input[type="search"]{
+    font-family:'Inter', sans-serif; font-size:13px; padding:8px 12px; border-radius:8px;
+    border:1px solid var(--line); background:var(--bg-panel); color:var(--ink);
+  }
+  select{cursor:pointer;}
+  input[type="search"]{ width:220px; }
+  input[type="search"]::placeholder{color:var(--ink-faint);}
+  .filters .spacer{flex:1;}
+  .reset-link{
+    font-size:12.5px; color:var(--ink-faint); background:none; border:none; cursor:pointer;
+    text-decoration:underline; text-underline-offset:3px; font-family:'Inter',sans-serif;
+  }
+  .reset-link:hover{color:var(--iodine-glow);}
+
+  /* KPI */
+  .kpis{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-bottom:28px;
+  }
+  @media (max-width:1100px){ .kpis{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:600px){ .kpis{grid-template-columns:repeat(2,1fr);} }
+  .kpi{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px;
+  }
+  .kpi .k-label{font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px;}
+  .kpi .k-value{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:24px;}
+  .kpi .k-sub{font-size:12px; color:var(--ink-dim); margin-top:4px; font-family:'IBM Plex Mono',monospace;}
+  .k-value-pair{display:flex; gap:16px; align-items:baseline;}
+  .k-value-item{display:flex; flex-direction:column;}
+  .k-tiny{font-size:10px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-top:1px;}
+  .k-total-usd{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); margin-top:8px;
+  }
+  .k-total-usd::before{content:'Total: '; color:var(--ink-faint); font-family:'Inter',sans-serif; font-size:11px;}
+
+  /* PANELS */
+  .grid2{display:grid; grid-template-columns:1.3fr 1fr; gap:16px; margin-bottom:16px;}
+  @media (max-width:900px){ .grid2{grid-template-columns:1fr;} }
+  .panel{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:20px;
+  }
+  .panel h2{
+    font-family:'Space Grotesk',sans-serif; font-size:15.5px; margin:0 0 2px; font-weight:600;
+  }
+  .panel .panel-sub{font-size:12px; color:var(--ink-faint); margin:0 0 14px;}
+  .chart-holder{position:relative; height:280px;}
+  .chart-holder.tall{height:320px;}
+  .chart-holder svg{width:100%; height:100%; display:block;}
+  .empty-state{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    text-align:center; padding:20px; font-size:13px; color:var(--ink-faint);
+    font-family:'Inter',sans-serif; pointer-events:none;
+  }
+  .empty-state.show{display:flex;}
+  .apart-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--c-fixed); border:1px solid var(--c-fixed); border-radius:100px; padding:2px 8px; margin-left:8px;
+    vertical-align:middle;
+  }
+  .rate-badges{display:flex; gap:8px; flex-wrap:wrap;}
+  .rate-badge{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; border-radius:8px;
+    background:var(--bg); border:1px solid var(--line); color:var(--ink-dim); white-space:nowrap;
+  }
+  .rate-badge b{color:var(--c-fixed);}
+  .fixed-header{
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;
+    margin-bottom:16px;
+  }
+  .glossary{
+    margin:14px 0 0; padding-top:12px; border-top:1px dashed var(--line);
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:8px 16px;
+  }
+  .glossary div{display:flex; align-items:baseline; gap:6px; font-size:11.5px;}
+  .glossary dt{
+    display:inline-flex; align-items:center; gap:6px; color:var(--ink); font-weight:600;
+    font-family:'Inter',sans-serif; white-space:nowrap; margin:0;
+  }
+  .glossary dt i{width:8px;height:8px;border-radius:2px; display:inline-block; flex-shrink:0;}
+  .glossary dd{margin:0; color:var(--ink-faint); font-family:'Inter',sans-serif;}
+  .glossary dd::before{content:'— ';}
+
+  .legend-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:12px; font-size:11.5px; color:var(--ink-dim);}
+  .legend-row span{display:inline-flex; align-items:center; gap:6px;}
+  .legend-row i{width:9px;height:9px;border-radius:2px; display:inline-block;}
+
+  /* TABLE */
+  .table-panel{margin-top:8px;}
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius);}
+  table{width:100%; border-collapse:collapse; font-size:13px; min-width:920px;}
+  thead th{
+    position:sticky; top:0; background:var(--bg-panel-2); text-align:left; padding:10px 12px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink-dim); border-bottom:1px solid var(--line); white-space:nowrap;
+  }
+  thead th button{
+    background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;
+    display:flex; align-items:center; gap:4px;
+  }
+  thead th .arrow{opacity:.35; font-size:10px;}
+  thead th.sorted .arrow{opacity:1; color:var(--iodine-glow);}
+  tbody td{padding:9px 12px; border-bottom:1px solid var(--line); white-space:nowrap; color:var(--ink);}
+  tbody tr:hover{background:rgba(163,119,232,0.06);}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num, th.num{text-align:right; font-family:'IBM Plex Mono',monospace;}
+  td.customer{color:var(--ink); font-weight:500;}
+  .tag{
+    display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11px; padding:2px 7px;
+    border-radius:5px; background:var(--bg); border:1px solid var(--line); color:var(--ink-dim);
+  }
+  .pay-badge{font-family:'IBM Plex Mono',monospace; font-size:11.5px; padding:2px 8px; border-radius:100px;}
+  .pay-fast{background:rgba(127,184,143,0.18); color:#9FD4AC;}
+  .pay-mid{background:rgba(224,164,88,0.18); color:#F0C285;}
+  .pay-slow{background:rgba(208,132,148,0.18); color:#F0A5B4;}
+  .pay-none{color:var(--ink-faint);}
+
+  .count-note{font-size:12px; color:var(--ink-faint); margin:10px 2px 0;}
+  .shared-group{
+    border:1px solid var(--line); border-radius:8px; margin-bottom:10px; overflow:hidden;
+  }
+  .shared-group-head{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+    padding:9px 14px; background:var(--bg-panel-2); font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+  }
+  .shared-group-head .req-tag{color:var(--iodine-glow); font-weight:600;}
+  .shared-group-head .container-tag{color:var(--ink-dim);}
+  .shared-group-head .cost-tag{color:var(--ink-faint); margin-left:auto;}
+  .shared-row{
+    display:flex; justify-content:space-between; align-items:center; padding:7px 14px;
+    border-top:1px solid var(--line); font-size:12.5px;
+  }
+  .shared-row .cust{color:var(--ink); font-weight:500;}
+  .shared-row .lote{color:var(--ink-faint); font-size:11px; margin-left:6px;}
+  .shared-row .kgpct{display:flex; gap:10px; align-items:center; font-family:'IBM Plex Mono',monospace; color:var(--ink-dim); font-size:11.5px;}
+  .shared-row .bar-bg{width:80px; height:6px; background:var(--bg); border-radius:3px; overflow:hidden;}
+  .shared-row .bar-fill{height:100%; background:var(--iodine-soft);}
+  .shared-empty{color:var(--ink-faint); font-size:13px; padding:16px 0;}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:11.5px; color:var(--ink-faint); text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="eyebrow"><span class="dot"></span> Manifiesto de embarques · CSY EU</div>
+      <h1>Costos logísticos de yodo,<br>venta por venta</h1>
+      <p>127 embarques entre 2023 y 2026. Desglose por puerto, tránsito a bodega, bodega y entrega final, con volumen y días de pago del cliente.</p>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-row">
+      <span class="filter-label">Año</span>
+      <div class="pillgroup" id="yearPills"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Cliente</span>
+      <div class="pillgroup" id="customerPills"></div>
+    </div>
+    <div class="filter-row">
+      <input type="search" id="searchBox" placeholder="Buscar container, lote, req...">
+      <div class="spacer"></div>
+      <button class="reset-link" id="resetBtn">Limpiar filtros</button>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="k-label">Volumen</div>
+      <div class="k-value mono" id="kpiVol">—</div>
+      <div class="k-sub">kg de yodo</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">Costo Total</div>
+      <div class="k-value mono" id="kpiTotalPerKg">—</div>
+      <div class="k-sub">USD/kg, ponderado</div>
+      <div class="k-total-usd" id="kpiTotalUSD">—</div>
+      <div class="calc-note">Logística + costo fijo + comisión, todo dividido por kg. Abajo: el mismo total pero en USD, sin dividir.</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">Costos Logísticos</div>
+      <div class="k-value mono" id="kpiLogPerKg">—</div>
+      <div class="k-sub">USD/kg, ponderado</div>
+      <div class="k-total-usd" id="kpiLogUSD">—</div>
+      <div class="calc-note">Puerto + puerto→bodega + bodega + bodega→cliente, dividido por kg.</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">Costos Fijos</div>
+      <div class="k-value mono" id="kpiFixedPerKg">—</div>
+      <div class="k-sub">USD/kg, ponderado</div>
+      <div class="k-total-usd" id="kpiFixedUSD">—</div>
+      <div class="calc-note">Costos anuales de administración prorrateados, dividido por kg del filtro actual.</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">Comisión</div>
+      <div class="k-value mono" id="kpiCommPerKg">—</div>
+      <div class="k-sub">USD/kg, ponderado</div>
+      <div class="k-total-usd" id="kpiCommUSD">—</div>
+      <div class="calc-note">Comisión de venta (2.25%), dividida por kg. Algunas ventas no tienen dato de comisión.</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">Días de pago</div>
+      <div class="k-value-pair">
+        <div class="k-value-item"><span class="k-value mono" id="kpiPayDays">—</span><span class="k-tiny">simple</span></div>
+        <div class="k-value-item"><span class="k-value mono" id="kpiPayDaysW">—</span><span class="k-tiny">pond. por kg</span></div>
+      </div>
+      <div class="k-sub" id="kpiPaySub">desde recepción</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2>Costo logístico por kg, top clientes</h2>
+      <p class="panel-sub">Costo unitario (USD/kg) por cliente. Cada categoría con el mismo ancho — el valor real está en la etiqueta. No incluye costo fijo</p>
+      <div class="chart-holder"><svg id="chartStack"></svg><div class="empty-state" id="emptyStack">Sin datos para este filtro</div></div>
+      <div class="legend-row">
+        <span><i style="background:var(--c-port)"></i>Costo puerto</span>
+        <span><i style="background:var(--c-transit)"></i>Puerto → bodega</span>
+        <span><i style="background:var(--c-wh)"></i>Bodega</span>
+        <span><i style="background:var(--c-final)"></i>Bodega → cliente</span>
+        <span><i style="background:var(--c-commission)"></i>Comisión</span>
+      </div>
+      <dl class="glossary">
+        <div><dt><i style="background:var(--c-port)"></i>Costo puerto</dt><dd>Manipulación en el puerto</dd></div>
+        <div><dt><i style="background:var(--c-transit)"></i>Puerto → bodega</dt><dd>Flete</dd></div>
+        <div><dt><i style="background:var(--c-wh)"></i>Bodega</dt><dd>Costo in-out, almacenaje (tiempo)</dd></div>
+        <div><dt><i style="background:var(--c-final)"></i>Bodega → cliente</dt><dd>Flete</dd></div>
+        <div><dt><i style="background:var(--c-commission)"></i>Comisión</dt><dd>2.25%</dd></div>
+      </dl>
+    </div>
+    <div class="panel">
+      <h2>Comparación de costos por categoría</h2>
+      <p class="panel-sub">Cada categoría con el mismo tamaño — el valor real está en la etiqueta, no en el tamaño del segmento. No incluye costo fijo</p>
+      <div class="chart-holder"><svg id="chartDonut"></svg><div class="empty-state" id="emptyDonut">Sin datos para este filtro</div></div>
+      <div class="legend-row">
+        <span><i style="background:var(--c-port)"></i>Costo puerto</span>
+        <span><i style="background:var(--c-transit)"></i>Puerto → bodega</span>
+        <span><i style="background:var(--c-wh)"></i>Bodega</span>
+        <span><i style="background:var(--c-final)"></i>Bodega → cliente</span>
+        <span><i style="background:var(--c-commission)"></i>Comisión</span>
+      </div>
+      <div class="calc-note">Suma en USD (no por kg) de cada categoría, sobre las ventas filtradas: puerto + puerto→bodega + bodega + bodega→cliente + comisión. El total al centro es la suma de las 5. No incluye costo fijo.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Contenedores compartidos entre clientes</h2>
+    <p class="panel-sub">Envíos de distintos clientes que viajaron en el mismo contenedor (mismo Req) y se repartieron el costo logístico proporcional a su peso</p>
+    <div id="sharedContainers"></div>
+    <p class="count-note" id="sharedContainersNote"></p>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2>Volumen y costo por kg en el tiempo</h2>
+      <p class="panel-sub">Volumen embarcado (barras) vs. costo logístico + comisión por kg (línea), últimos 8 trimestres</p>
+      <div class="chart-holder tall"><svg id="chartTime"></svg><div class="empty-state" id="emptyTime">Sin datos para este filtro</div></div>
+    </div>
+    <div class="panel">
+      <h2>Días de pago por cliente</h2>
+      <p class="panel-sub">Promedio de días entre recepción y pago (solo ventas con dato registrado)</p>
+      <div class="chart-holder tall"><svg id="chartPay"></svg><div class="empty-state" id="emptyPay">Este cliente no tiene fecha de pago registrada</div></div>
+    </div>
+  </div>
+
+  <div class="fixed-header">
+    <div>
+      <h2>Costos fijos <span class="apart-tag">aparte de la logística</span></h2>
+      <p class="panel-sub">Seguro de crédito, legal/tributario, contabilidad, seguro de transporte. No se suma a los gráficos de costo logístico de arriba.</p>
+      <dl class="glossary" style="border-top:none; padding-top:0; margin-top:6px;">
+        <div><dt><i style="background:var(--c-fixed)"></i>Costo fijo</dt><dd>Costos administrativos / oficina</dd></div>
+      </dl>
+    </div>
+    <div class="rate-badges" id="fixedRateBadges"></div>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h2>Costo fijo asignado por cliente</h2>
+      <p class="panel-sub">Prorrateado por kg vendido cada año — para ver costo total real por cliente</p>
+      <div class="chart-holder tall"><svg id="chartFixed"></svg><div class="empty-state" id="emptyFixed">Sin datos para este filtro</div></div>
+    </div>
+    <div class="panel">
+      <h2>Gasto fijo anual</h2>
+      <p class="panel-sub">Total sin prorratear, por año — para controlar el gasto administrativo en sí</p>
+      <div class="chart-holder tall"><svg id="chartFixedYear"></svg><div class="empty-state" id="emptyFixedYear">Sin datos</div></div>
+    </div>
+  </div>
+
+  <div class="panel table-panel">
+    <h2>Detalle por venta</h2>
+    <p class="panel-sub">Clic en un encabezado para ordenar. Volúmenes en kg, costos en USD.</p>
+    <div class="table-scroll">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th data-key="year">Año</th>
+            <th data-key="customer">Cliente</th>
+            <th data-key="req">Req / Container</th>
+            <th class="num" data-key="qty_kg">Volumen (kg)</th>
+            <th class="num" data-key="cost_port">Puerto</th>
+            <th class="num" data-key="cost_port_wh">Puerto→Bodega</th>
+            <th class="num" data-key="cost_wh">Bodega</th>
+            <th class="num" data-key="cost_transport">Bodega→Cliente</th>
+            <th class="num" data-key="cost_total">Total Logística</th>
+            <th class="num" data-key="cost_fixed">Costo Fijo (aparte)</th>
+            <th data-key="payment_days">Días de pago</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <p class="count-note" id="countNote"></p>
+  </div>
+
+  <footer>CSY EU · Datos derivados de CSY_EU_costs.xlsx (hoja Transaction costs) · Días de pago no disponibles para embarques cuyo lookup externo no resolvió</footer>
+</div>
+
+<script>
+const DATA = [{"year": 2023, "req": 22162, "container": "UACU361181-8", "customer": "Solvay Fluor", "lote": "22179", "qty_kg": 14000, "delivery_date": "2023-01-19", "payment_date": "2023-04-10", "payment_days": 81, "cost_port": 778.0, "cost_port_wh": 510.58, "cost_wh": 200.12, "cost_transport": 1644.51, "cost_commission": 23940, "cost_fixed": 0.0, "cost_logistics": 3133.21, "cost_total": 3133.21}, {"year": 2023, "req": 22148, "container": "UACU860090-3", "customer": "GE", "lote": "230003", "qty_kg": 20000, "delivery_date": "2023-02-28", "payment_date": "2023-06-06", "payment_days": 98, "cost_port": 415.0, "cost_port_wh": 702.2, "cost_wh": 539.24, "cost_transport": 4426.12, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 6082.56, "cost_total": 6082.56}, {"year": 2023, "req": 23012, "container": "HLBU217117-8", "customer": "Solvay Italia", "lote": "230006", "qty_kg": 7040, "delivery_date": "2023-03-08", "payment_date": "2023-06-05", "payment_days": 89, "cost_port": 310.62, "cost_port_wh": 276.0, "cost_wh": 242.0, "cost_transport": 1763.82, "cost_commission": 12038.4, "cost_fixed": 0.0, "cost_logistics": 2592.45, "cost_total": 2592.45}, {"year": 2023, "req": 23012, "container": "HLBU217117-8", "customer": "Solvay Italia", "lote": "230006", "qty_kg": 7040, "delivery_date": "2023-04-04", "payment_date": "2023-07-05", "payment_days": 92, "cost_port": 310.62, "cost_port_wh": 276.0, "cost_wh": 242.0, "cost_transport": 1763.82, "cost_commission": 12038.4, "cost_fixed": 0.0, "cost_logistics": 2592.45, "cost_total": 2592.45}, {"year": 2023, "req": 23013, "container": "HLXU137276-6", "customer": "Thor UK", "lote": "230002", "qty_kg": 20000, "delivery_date": "2023-03-07", "payment_date": "2023-05-19", "payment_days": 73, "cost_port": 455.25, "cost_port_wh": 498.32, "cost_wh": 318.22, "cost_transport": 3196.44, "cost_commission": 34650, "cost_fixed": 0.0, "cost_logistics": 4468.23, "cost_total": 4468.23}, {"year": 2023, "req": 23015, "container": "BEAU216768-0", "customer": "Bracco", "lote": "230001", "qty_kg": 20000, "delivery_date": "2023-04-25", "payment_date": "2023-07-23", "payment_days": 89, "cost_port": 2445.1, "cost_port_wh": 490.15, "cost_wh": 305.66, "cost_transport": 2598.53, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 5839.44, "cost_total": 5839.44}, {"year": 2023, "req": 23014, "container": "TEMU784673-7", "customer": "GE", "lote": "230021", "qty_kg": 18000, "delivery_date": "2023-04-12", "payment_date": "2023-07-13", "payment_days": 92, "cost_port": 621.25, "cost_port_wh": 684.1, "cost_wh": 338.28, "cost_transport": 4390.32, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 6033.95, "cost_total": 6033.95}, {"year": 2023, "req": 23041, "container": "HLBU110107-3", "customer": "Justesa", "lote": "230011", "qty_kg": 7000, "delivery_date": "2023-04-18", "payment_date": "2023-06-18", "payment_days": 61, "cost_port": 480.25, "cost_port_wh": 494.24, "cost_wh": 283.11, "cost_transport": 2292.59, "cost_commission": 12127.5, "cost_fixed": 0.0, "cost_logistics": 3550.19, "cost_total": 3550.19}, {"year": 2023, "req": 23016, "container": "UACU372394-7", "customer": "Troy Europe", "lote": "230026", "qty_kg": 18000, "delivery_date": "2023-04-28", "payment_date": "2023-07-02", "payment_days": 65, "cost_port": 480.25, "cost_port_wh": 494.24, "cost_wh": 333.29, "cost_transport": 893.15, "cost_commission": 28755, "cost_fixed": 0.0, "cost_logistics": 2200.93, "cost_total": 2200.93}, {"year": 2023, "req": 23032, "container": "GLDU526670-9", "customer": "Bracco", "lote": "230027", "qty_kg": 20000, "delivery_date": "2023-05-02", "payment_date": "2023-08-06", "payment_days": 96, "cost_port": 378.62, "cost_port_wh": 490.15, "cost_wh": 239.09, "cost_transport": 2576.87, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3684.74, "cost_total": 3684.74}, {"year": 2023, "req": 23032, "container": "TRHU201504-0", "customer": "Bracco", "lote": "230023", "qty_kg": 20000, "delivery_date": "2023-05-03", "payment_date": "2023-08-06", "payment_days": 95, "cost_port": 378.62, "cost_port_wh": 490.15, "cost_wh": 239.09, "cost_transport": 2576.87, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3684.74, "cost_total": 3684.74}, {"year": 2023, "req": 23029, "container": "TGHU012665-5", "customer": "Thor UK", "lote": "230031", "qty_kg": 21600, "delivery_date": "2023-05-09", "payment_date": "2023-07-07", "payment_days": 59, "cost_port": 1090.1, "cost_port_wh": 490.15, "cost_wh": 247.87, "cost_transport": 3122.6, "cost_commission": 37422, "cost_fixed": 0.0, "cost_logistics": 4950.72, "cost_total": 4950.72}, {"year": 2023, "req": 23044, "container": "HLBU200634-2", "customer": "GE", "lote": "230033", "qty_kg": 18000, "delivery_date": "2023-06-06", "payment_date": "2023-09-03", "payment_days": 89, "cost_port": 593.63, "cost_port_wh": 602.21, "cost_wh": 321.95, "cost_transport": 4282.9, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 5800.69, "cost_total": 5800.69}, {"year": 2023, "req": 23044, "container": "HLBU252810-0", "customer": "GE", "lote": "230037", "qty_kg": 18000, "delivery_date": "2023-06-13", "payment_date": "2023-09-10", "payment_days": 89, "cost_port": 593.63, "cost_port_wh": 602.21, "cost_wh": 321.95, "cost_transport": 4282.9, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 5800.69, "cost_total": 5800.69}, {"year": 2023, "req": 23045, "container": "HLBU103146-4", "customer": "Bracco", "lote": "230042", "qty_kg": 20000, "delivery_date": "2023-06-08", "payment_date": "2023-09-03", "payment_days": 87, "cost_port": 550.25, "cost_port_wh": 481.98, "cost_wh": 232.81, "cost_transport": 2555.22, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3820.26, "cost_total": 3820.26}, {"year": 2023, "req": 23053, "container": "TRLU764694-1", "customer": "Justesa", "lote": "230041", "qty_kg": 12000, "delivery_date": "2023-06-06", "payment_date": "2023-08-28", "payment_days": 83, "cost_port": 477.26, "cost_port_wh": 336.49, "cost_wh": 191.04, "cost_transport": 2687.21, "cost_commission": 20790, "cost_fixed": 0.0, "cost_logistics": 3692.0, "cost_total": 3692.0}, {"year": 2023, "req": 23053, "container": "TRLU764694-1", "customer": "Solvay Italia", "lote": "230039", "qty_kg": 7040, "delivery_date": "2023-06-07", "payment_date": "2023-09-05", "payment_days": 90, "cost_port": 279.99, "cost_port_wh": 197.41, "cost_wh": 112.08, "cost_transport": 1576.49, "cost_commission": 12038.4, "cost_fixed": 0.0, "cost_logistics": 2165.97, "cost_total": 2165.97}, {"year": 2023, "req": 23046, "container": "CAIU408284-2", "customer": "GE", "lote": "230040", "qty_kg": 18000, "delivery_date": "2023-06-15", "payment_date": "2023-09-12", "payment_days": 89, "cost_port": 413.63, "cost_port_wh": 533.89, "cost_wh": 227.75, "cost_transport": 4282.9, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 5458.16, "cost_total": 5458.16}, {"year": 2023, "req": 23046, "container": "TCLU414812-3", "customer": "GE", "lote": "230043", "qty_kg": 18000, "delivery_date": "2023-06-20", "payment_date": "2023-09-19", "payment_days": 91, "cost_port": 413.63, "cost_port_wh": 533.89, "cost_wh": 227.75, "cost_transport": 4282.9, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 5458.16, "cost_total": 5458.16}, {"year": 2023, "req": 23033, "container": "UACU3874774", "customer": "Bracco", "lote": "230051", "qty_kg": 20000, "delivery_date": "2023-06-07", "payment_date": "2023-10-04", "payment_days": 119, "cost_port": 580.25, "cost_port_wh": 240.99, "cost_wh": 157.45, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3620.53, "cost_total": 3620.53}, {"year": 2023, "req": 23055, "container": "UETU280362-0", "customer": "Bracco", "lote": "230048", "qty_kg": 20000, "delivery_date": "2023-07-04", "payment_date": "2023-10-01", "payment_days": 89, "cost_port": 1065.25, "cost_port_wh": 481.98, "cost_wh": 144.89, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 4333.96, "cost_total": 4333.96}, {"year": 2023, "req": 23047, "container": "UACU601418-5", "customer": "GE", "lote": "230049", "qty_kg": 18000, "delivery_date": "2023-07-11", "payment_date": "2023-10-08", "payment_days": 89, "cost_port": 580.25, "cost_port_wh": 548.57, "cost_wh": 171.23, "cost_transport": 4426.12, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 5726.17, "cost_total": 5726.17}, {"year": 2023, "req": 23047, "container": "TCLU577667-5", "customer": "GE", "lote": "230050", "qty_kg": 18000, "delivery_date": "2023-07-06", "payment_date": "2023-10-03", "payment_days": 89, "cost_port": 580.25, "cost_port_wh": 548.57, "cost_wh": 171.23, "cost_transport": 4426.12, "cost_commission": 29666.25, "cost_fixed": 0.0, "cost_logistics": 5726.17, "cost_total": 5726.17}, {"year": 2023, "req": 23056, "container": "HLBU302170-0", "customer": "Merck", "lote": "230053", "qty_kg": 20000, "delivery_date": "2023-07-03", "payment_date": "2023-08-02", "payment_days": 30, "cost_port": 580.25, "cost_port_wh": 481.98, "cost_wh": 157.45, "cost_transport": 1479.62, "cost_commission": 33750, "cost_fixed": 0.0, "cost_logistics": 2699.3, "cost_total": 2699.3}, {"year": 2023, "req": 23060, "container": "HLBU231177-3", "customer": "Troy Europe", "lote": "230045", "qty_kg": 18000, "delivery_date": "2023-07-05", "payment_date": "2023-09-03", "payment_days": 60, "cost_port": 580.25, "cost_port_wh": 481.98, "cost_wh": 152.45, "cost_transport": 908.03, "cost_commission": 28755, "cost_fixed": 0.0, "cost_logistics": 2122.71, "cost_total": 2122.71}, {"year": 2023, "req": 23034, "container": "FCIU437565-9", "customer": "Bracco", "lote": "230046", "qty_kg": 20000, "delivery_date": "2023-07-10", "payment_date": "2023-10-04", "payment_days": 86, "cost_port": 616.12, "cost_port_wh": 481.98, "cost_wh": 170.01, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3909.95, "cost_total": 3909.95}, {"year": 2023, "req": 23034, "container": "MEDU5285357", "customer": "Bracco", "lote": "230057", "qty_kg": 20000, "delivery_date": "2023-07-07", "payment_date": "2023-10-04", "payment_days": 89, "cost_port": 616.12, "cost_port_wh": 481.98, "cost_wh": 170.01, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3909.95, "cost_total": 3909.95}, {"year": 2023, "req": 23035, "container": "TRHU3761933", "customer": "Bracco", "lote": "230058", "qty_kg": 20000, "delivery_date": "2023-07-17", "payment_date": "2023-10-19", "payment_days": 94, "cost_port": 461.12, "cost_port_wh": 498.32, "cost_wh": 180.06, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3781.34, "cost_total": 3781.34}, {"year": 2023, "req": 23035, "container": "MSMU1013267", "customer": "Bracco", "lote": "230062", "qty_kg": 20000, "delivery_date": "2023-07-18", "payment_date": "2023-10-19", "payment_days": 93, "cost_port": 461.12, "cost_port_wh": 498.32, "cost_wh": 180.06, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3781.34, "cost_total": 3781.34}, {"year": 2023, "req": 23065, "container": "FANU146406-5", "customer": "GE", "lote": "230059", "qty_kg": 18000, "delivery_date": "2023-08-01", "payment_date": "2023-10-31", "payment_days": 91, "cost_port": 995.25, "cost_port_wh": 551.99, "cost_wh": 177.51, "cost_transport": 4426.12, "cost_commission": 29261.25, "cost_fixed": 0.0, "cost_logistics": 6150.87, "cost_total": 6150.87}, {"year": 2023, "req": 23058, "container": "DFSU288113-7", "customer": "Bracco", "lote": "230056", "qty_kg": 20000, "delivery_date": "2023-08-08", "payment_date": "2023-11-06", "payment_days": 90, "cost_port": 580.25, "cost_port_wh": 498.32, "cost_wh": 170.01, "cost_transport": 2641.84, "cost_commission": 33300, "cost_fixed": 0.0, "cost_logistics": 3890.42, "cost_total": 3890.42}, {"year": 2023, "req": 23074, "container": "HAMU129704-8", "customer": "GE", "lote": "230071", "qty_kg": 18000, "delivery_date": "2023-08-28", "payment_date": "2023-11-23", "payment_days": 87, "cost_port": 555.25, "cost_port_wh": 551.99, "cost_wh": 186.95, "cost_transport": 4426.12, "cost_commission": 29261.25, "cost_fixed": 0.0, "cost_logistics": 5720.31, "cost_total": 5720.31}, {"year": 2023, "req": 23082, "container": "CLHU391253-9", "customer": "Thor UK", "lote": "230072", "qty_kg": 20000, "delivery_date": "2023-08-28", "payment_date": "2023-10-24", "payment_days": 57, "cost_port": 619.01, "cost_port_wh": 498.32, "cost_wh": 230.3, "cost_transport": 3211.44, "cost_commission": 32850, "cost_fixed": 0.0, "cost_logistics": 4559.07, "cost_total": 4559.07}, {"year": 2023, "req": 23084, "container": "FBIU016787-1", "customer": "Bracco", "lote": "230073", "qty_kg": 20000, "delivery_date": "2023-09-08", "payment_date": "2023-12-07", "payment_days": 90, "cost_port": 608.91, "cost_port_wh": 498.32, "cost_wh": 293.1, "cost_transport": 2750.11, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4150.44, "cost_total": 4150.44}, {"year": 2023, "req": 23100, "container": "TCLU274360-0", "customer": "Bracco", "lote": "230077", "qty_kg": 20000, "delivery_date": "2023-09-11", "payment_date": "2023-12-07", "payment_days": 87, "cost_port": 619.01, "cost_port_wh": 505.34, "cost_wh": 195.13, "cost_transport": 2750.11, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4069.59, "cost_total": 4069.59}, {"year": 2023, "req": 23072, "container": "TCKU654960-0", "customer": "Justesa", "lote": "230078", "qty_kg": 20000, "delivery_date": "2023-09-15", "payment_date": "2023-11-14", "payment_days": 60, "cost_port": 580.25, "cost_port_wh": 563.3, "cost_wh": 277.99, "cost_transport": 4506.07, "cost_commission": 33075, "cost_fixed": 0.0, "cost_logistics": 5927.61, "cost_total": 5927.61}, {"year": 2023, "req": 23066, "container": "UACU552467-2", "customer": "Solvay Italia", "lote": "230079", "qty_kg": 4180, "delivery_date": "2023-09-13", "payment_date": "2023-12-04", "payment_days": 82, "cost_port": 268.9, "cost_port_wh": 261.04, "cost_wh": 304.66, "cost_transport": 1163.79, "cost_commission": 7006.73, "cost_fixed": 0.0, "cost_logistics": 1998.39, "cost_total": 1998.39}, {"year": 2023, "req": 23066, "container": "UACU552467-2", "customer": "Solvay Italia", "lote": "230081", "qty_kg": 4840, "delivery_date": "2023-10-11", "payment_date": "2024-01-04", "payment_days": 85, "cost_port": 311.35, "cost_port_wh": 302.26, "cost_wh": 352.76, "cost_transport": 1347.55, "cost_commission": 8113.05, "cost_fixed": 0.0, "cost_logistics": 2313.92, "cost_total": 2313.92}, {"year": 2023, "req": 23085, "container": "FCIU628787-6", "customer": "Troy Europe", "lote": "230084", "qty_kg": 18000, "delivery_date": "2023-09-27", "payment_date": "2023-11-26", "payment_days": 60, "cost_port": 580.25, "cost_port_wh": 518.74, "cost_wh": 388.58, "cost_transport": 945.25, "cost_commission": 27945, "cost_fixed": 0.0, "cost_logistics": 2432.82, "cost_total": 2432.82}, {"year": 2023, "req": 23075, "container": "TXGU735060-5", "customer": "GE", "lote": "230082", "qty_kg": 18000, "delivery_date": "2023-10-02", "payment_date": "2023-12-28", "payment_days": 87, "cost_port": 580.25, "cost_port_wh": 574.61, "cost_wh": 247.8, "cost_transport": 4677.14, "cost_commission": 29261.25, "cost_fixed": 0.0, "cost_logistics": 6079.8, "cost_total": 6079.8}, {"year": 2023, "req": 23089, "container": "TEMU105794-2", "customer": "Bracco", "lote": "230083", "qty_kg": 20000, "delivery_date": "2023-10-06", "payment_date": "2024-01-04", "payment_days": 90, "cost_port": 1090.25, "cost_port_wh": 593.19, "cost_wh": 224.02, "cost_transport": 2793.42, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4700.89, "cost_total": 4700.89}, {"year": 2023, "req": 23089, "container": "TCLU287140-5", "customer": "Bracco", "lote": "230085", "qty_kg": 20000, "delivery_date": "2023-10-13", "payment_date": "2024-01-11", "payment_days": 90, "cost_port": 1090.25, "cost_port_wh": 593.19, "cost_wh": 224.02, "cost_transport": 2793.42, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4700.89, "cost_total": 4700.89}, {"year": 2023, "req": 23075, "container": "TCLU544626-7", "customer": "GE", "lote": "230092", "qty_kg": 18000, "delivery_date": "2023-10-09", "payment_date": "2024-01-04", "payment_days": 87, "cost_port": 580.25, "cost_port_wh": 574.61, "cost_wh": 247.8, "cost_transport": 4677.14, "cost_commission": 29261.25, "cost_fixed": 0.0, "cost_logistics": 6079.8, "cost_total": 6079.8}, {"year": 2023, "req": 23093, "container": "TEMU485936-6", "customer": "Thor UK", "lote": "230104", "qty_kg": 20000, "delivery_date": "2023-10-16", "payment_date": "2023-12-15", "payment_days": 60, "cost_port": 580.25, "cost_port_wh": 526.91, "cost_wh": 180.06, "cost_transport": 3493.74, "cost_commission": 32850, "cost_fixed": 0.0, "cost_logistics": 4780.96, "cost_total": 4780.96}, {"year": 2023, "req": 23118, "container": "TEMU186490-2", "customer": "Bracco", "lote": "230093", "qty_kg": 20000, "delivery_date": "2023-10-20", "payment_date": "2024-01-17", "payment_days": 89, "cost_port": 580.25, "cost_port_wh": 541.91, "cost_wh": 180.06, "cost_transport": 2793.42, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4095.64, "cost_total": 4095.64}, {"year": 2023, "req": 23090, "container": "UACU388251-1", "customer": "Bracco", "lote": "230094", "qty_kg": 20000, "delivery_date": "2023-11-14", "payment_date": "2024-02-13", "payment_days": 91, "cost_port": 639.58, "cost_port_wh": 526.91, "cost_wh": 209.37, "cost_transport": 2748.24, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4124.1, "cost_total": 4124.1}, {"year": 2023, "req": 23090, "container": "HLXU334904-5", "customer": "Bracco", "lote": "230095", "qty_kg": 20000, "delivery_date": "2023-11-21", "payment_date": "2024-02-20", "payment_days": 91, "cost_port": 639.58, "cost_port_wh": 526.91, "cost_wh": 209.37, "cost_transport": 2748.24, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4124.1, "cost_total": 4124.1}, {"year": 2023, "req": 23090, "container": "HLXU352379-5", "customer": "Bracco", "lote": "230096", "qty_kg": 20000, "delivery_date": "2023-11-22", "payment_date": "2024-02-20", "payment_days": 90, "cost_port": 639.58, "cost_port_wh": 526.91, "cost_wh": 209.37, "cost_transport": 2748.24, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4124.1, "cost_total": 4124.1}, {"year": 2023, "req": 23122, "container": "TRHU141104-7", "customer": "Bracco", "lote": "230105-230106", "qty_kg": 20000, "delivery_date": "2023-11-28", "payment_date": "2024-02-25", "payment_days": 89, "cost_port": 621.25, "cost_port_wh": 663.55, "cost_wh": 205.18, "cost_transport": 2725.65, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 4215.63, "cost_total": 4215.63}, {"year": 2023, "req": 23119, "container": "FCIU746828-8", "customer": "Justesa", "lote": "230113", "qty_kg": 20000, "delivery_date": "2023-11-28", "payment_date": "2024-01-26", "payment_days": 59, "cost_port": 621.25, "cost_port_wh": 583.66, "cost_wh": 180.06, "cost_transport": 4574.87, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 5959.84, "cost_total": 5959.84}, {"year": 2023, "req": 23091, "container": "HAMU105906-0", "customer": "Bracco", "lote": "230114", "qty_kg": 20000, "delivery_date": "2023-12-05", "payment_date": "2024-03-03", "payment_days": 89, "cost_port": 530.25, "cost_port_wh": 526.91, "cost_wh": 242.86, "cost_transport": 2683.4, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 3983.42, "cost_total": 3983.42}, {"year": 2023, "req": 23091, "container": "HLBU296173-7", "customer": "Bracco", "lote": "230112", "qty_kg": 20000, "delivery_date": "2023-12-12", "payment_date": "2024-03-10", "payment_days": 89, "cost_port": 530.25, "cost_port_wh": 526.91, "cost_wh": 242.86, "cost_transport": 2683.4, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 3983.42, "cost_total": 3983.42}, {"year": 2023, "req": 23087, "container": "TLLU256207-1", "customer": "Merck", "lote": "230120", "qty_kg": 20000, "delivery_date": "2023-12-01", "payment_date": "2023-12-31", "payment_days": 30, "cost_port": 530.25, "cost_port_wh": 526.91, "cost_wh": 192.62, "cost_transport": 1485.22, "cost_commission": 33075, "cost_fixed": 0.0, "cost_logistics": 2735, "cost_total": 2735}, {"year": 2023, "req": 23092, "container": "HLXU128699-2", "customer": "Bracco", "lote": "230122", "qty_kg": 20000, "delivery_date": "2023-12-12", "payment_date": "2024-03-10", "payment_days": 89, "cost_port": 530.25, "cost_port_wh": 518.74, "cost_wh": 205.18, "cost_transport": 2683.4, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 3937.57, "cost_total": 3937.57}, {"year": 2023, "req": 23125, "container": "FBIU048344-2", "customer": "Bracco", "lote": "230123", "qty_kg": 20000, "delivery_date": "2023-12-15", "payment_date": "2024-03-13", "payment_days": 89, "cost_port": 447.75, "cost_port_wh": 518.74, "cost_wh": 242.86, "cost_transport": 2683.4, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 3892.75, "cost_total": 3892.75}, {"year": 2023, "req": 23125, "container": "FCGU228369-0", "customer": "Bracco", "lote": "230131", "qty_kg": 20000, "delivery_date": "2023-12-19", "payment_date": "2024-03-17", "payment_days": 89, "cost_port": 447.75, "cost_port_wh": 518.74, "cost_wh": 242.86, "cost_transport": 2683.4, "cost_commission": 32400, "cost_fixed": 0.0, "cost_logistics": 3892.75, "cost_total": 3892.75}, {"year": 2023, "req": 23130, "container": "GLDU932480-3", "customer": "Solvay Italia", "lote": "230143", "qty_kg": 7040, "delivery_date": "2024-01-16", "payment_date": "2024-04-05", "payment_days": 80, "cost_port": 485.25, "cost_port_wh": 505.64, "cost_wh": 232.92, "cost_transport": 1438.58, "cost_commission": 11484, "cost_fixed": 0.0, "cost_logistics": 2662.39, "cost_total": 2662.39}, {"year": 2024, "req": 23139, "container": "GATU134866-4", "customer": "Bracco", "lote": "230144", "qty_kg": 20000, "delivery_date": "2024-01-24", "payment_date": "2024-04-22", "payment_days": 89, "cost_port": 485.0, "cost_port_wh": 485.64, "cost_wh": 222.0, "cost_transport": 2264.2, "cost_commission": 30600, "cost_fixed": 0.0, "cost_logistics": 3456.84, "cost_total": 3456.84}, {"year": 2024, "req": 23139, "container": "GATU130419-9", "customer": "Bracco", "lote": "230137", "qty_kg": 20000, "delivery_date": "2024-01-19", "payment_date": "2024-04-17", "payment_days": 89, "cost_port": 485.0, "cost_port_wh": 485.64, "cost_wh": 222.0, "cost_transport": 2264.2, "cost_commission": 30600, "cost_fixed": 0.0, "cost_logistics": 3456.84, "cost_total": 3456.84}, {"year": 2024, "req": 23088, "container": "TEMU197586-6", "customer": "Merck", "lote": "230145", "qty_kg": 20000, "delivery_date": "2024-01-24", "payment_date": "2024-02-23", "payment_days": 30, "cost_port": 532.0, "cost_port_wh": 505.64, "cost_wh": 207.0, "cost_transport": 1233.77, "cost_commission": 33075, "cost_fixed": 0.0, "cost_logistics": 2478.41, "cost_total": 2478.41}, {"year": 2024, "req": 23094, "container": "TLLU244826-4", "customer": "Thor UK", "lote": "230148", "qty_kg": 20000, "delivery_date": "2024-01-26", "payment_date": "2024-02-25", "payment_days": 30, "cost_port": 532.0, "cost_port_wh": 505.64, "cost_wh": 207.0, "cost_transport": 2835.24, "cost_commission": 31950, "cost_fixed": 0.0, "cost_logistics": 4079.88, "cost_total": 4079.88}, {"year": 2024, "req": 23141, "container": "TCLU282239-7", "customer": "Troy Europe", "lote": "240005", "qty_kg": 18000, "delivery_date": "2024-02-02", "payment_date": "2024-04-02", "payment_days": 60, "cost_port": 682.0, "cost_port_wh": 507.15, "cost_wh": 185.0, "cost_transport": 804.57, "cost_commission": 26730, "cost_fixed": 0.0, "cost_logistics": 2178.72, "cost_total": 2178.72}, {"year": 2024, "req": 24011, "container": "CAIU269584-5", "customer": "Solvay Italia", "lote": "240006", "qty_kg": 7040, "delivery_date": "2024-04-10", "payment_date": "2024-07-04", "payment_days": 85, "cost_port": 565.0, "cost_port_wh": 509.73, "cost_wh": 357.0, "cost_transport": 1463.82, "cost_commission": 11484, "cost_fixed": 0.0, "cost_logistics": 2895.55, "cost_total": 2895.55}, {"year": 2024, "req": 24006, "container": "HLBU262822-2", "customer": "Merck", "lote": "240013", "qty_kg": 20000, "delivery_date": "2024-02-22", "payment_date": "2024-03-22", "payment_days": 29, "cost_port": 905.0, "cost_port_wh": 489.73, "cost_wh": 201.5, "cost_transport": 1244.59, "cost_commission": 30712.5, "cost_fixed": 0.0, "cost_logistics": 2840.82, "cost_total": 2840.82}, {"year": 2024, "req": 24001, "container": "CAIU699313-3", "customer": "Thor UK", "lote": "240047", "qty_kg": 21600, "delivery_date": "2024-03-11", "payment_date": "2024-05-10", "payment_days": 60, "cost_port": 520.0, "cost_port_wh": 497.9, "cost_wh": 233.0, "cost_transport": 2904.65, "cost_commission": 32319, "cost_fixed": 0.0, "cost_logistics": 4155.55, "cost_total": 4155.55}, {"year": 2024, "req": 24002, "container": "HLXU115825-0", "customer": "Troy Europe", "lote": "240071", "qty_kg": 18000, "delivery_date": "2024-05-14", "payment_date": "2024-07-12", "payment_days": 59, "cost_port": 537.0, "cost_port_wh": 493.81, "cost_wh": 487.5, "cost_transport": 818.57, "cost_commission": 26730, "cost_fixed": 0.0, "cost_logistics": 2336.88, "cost_total": 2336.88}, {"year": 2024, "req": 24064, "container": "UACU395116-6", "customer": "Thor UK", "lote": "240076", "qty_kg": 18000, "delivery_date": "2024-06-17", "payment_date": "2024-08-13", "payment_days": 57, "cost_port": 1343.0, "cost_port_wh": 509.73, "cost_wh": 194.0, "cost_transport": 2928.37, "cost_commission": 5386.5, "cost_fixed": 0.0, "cost_logistics": 4975.1, "cost_total": 4975.1}, {"year": 2024, "req": 24062, "container": "MSKU574863-9", "customer": "Bracco", "lote": "240078", "qty_kg": 20000, "delivery_date": "2024-06-18", "payment_date": "2024-09-15", "payment_days": 89, "cost_port": 533.0, "cost_port_wh": 469.73, "cost_wh": 191.5, "cost_transport": 2340.84, "cost_commission": 29700, "cost_fixed": 0.0, "cost_logistics": 3535.07, "cost_total": 3535.07}, {"year": 2024, "req": 24065, "container": "IPXU361533-3", "customer": "Troy Europe", "lote": "240073", "qty_kg": 18000, "delivery_date": "2024-06-20", "payment_date": "2024-08-18", "payment_days": 59, "cost_port": 533.0, "cost_port_wh": 469.73, "cost_wh": 247.0, "cost_transport": 804.57, "cost_commission": 26730, "cost_fixed": 0.0, "cost_logistics": 2054.3, "cost_total": 2054.3}, {"year": 2024, "req": 24007, "container": "TEMU489335-5", "customer": "Merck", "lote": "240087", "qty_kg": 20000, "delivery_date": "2024-06-21", "payment_date": "2024-07-20", "payment_days": 29, "cost_port": 570.0, "cost_port_wh": 496.32, "cost_wh": 252.0, "cost_transport": 1244.59, "cost_commission": 30712.5, "cost_fixed": 0.0, "cost_logistics": 2562.91, "cost_total": 2562.91}, {"year": 2024, "req": 24063, "container": "UACU395787-9", "customer": "Bracco", "lote": "240083", "qty_kg": 20000, "delivery_date": "2024-07-26", "payment_date": "2024-10-22", "payment_days": 88, "cost_port": 1395.0, "cost_port_wh": 510.64, "cost_wh": 227.0, "cost_transport": 2320.48, "cost_commission": 29700, "cost_fixed": 0.0, "cost_logistics": 4453.12, "cost_total": 4453.12}, {"year": 2024, "req": 24102, "container": "SEKU142022-8", "customer": "Troy Europe", "lote": "240124", "qty_kg": 18000, "delivery_date": "2024-08-15", "payment_date": "2024-10-13", "payment_days": 59, "cost_port": 635.0, "cost_port_wh": 489.73, "cost_wh": 192.5, "cost_transport": 804.57, "cost_commission": 27135, "cost_fixed": 0.0, "cost_logistics": 2121.8, "cost_total": 2121.8}, {"year": 2024, "req": 24103, "container": "FANU137140-3", "customer": "Troy Europe", "lote": "240130", "qty_kg": 18000, "delivery_date": "2024-09-27", "payment_date": "2024-11-25", "payment_days": 59, "cost_port": 570.0, "cost_port_wh": 501.56, "cost_wh": 282.5, "cost_transport": 790.58, "cost_commission": 27135, "cost_fixed": 0.0, "cost_logistics": 2144.64, "cost_total": 2144.64}, {"year": 2024, "req": 24104, "container": "FTAU198631-4", "customer": "Merck", "lote": "240140", "qty_kg": 20000, "delivery_date": "2024-09-18", "payment_date": "2024-10-18", "payment_days": 30, "cost_port": 525.0, "cost_port_wh": 501.56, "cost_wh": 176.0, "cost_transport": 1222.94, "cost_commission": 31162.5, "cost_fixed": 0.0, "cost_logistics": 2425.5, "cost_total": 2425.5}, {"year": 2024, "req": 24014, "container": "FCIU382381-0", "customer": "Solvay Italia", "lote": "240126", "qty_kg": 7040, "delivery_date": "2024-10-17", "payment_date": "2025-01-04", "payment_days": 79, "cost_port": 570.0, "cost_port_wh": 477.48, "cost_wh": 178.0, "cost_transport": 1413.34, "cost_commission": 11484, "cost_fixed": 0.0, "cost_logistics": 2638.82, "cost_total": 2638.82}, {"year": 2024, "req": 24101, "container": "TRHU258092-5", "customer": "Thor UK", "lote": "240154", "qty_kg": 21600, "delivery_date": "2024-10-22", "payment_date": "2024-12-21", "payment_days": 60, "cost_port": 570.0, "cost_port_wh": 477.48, "cost_wh": 277.0, "cost_transport": 2891.87, "cost_commission": 33048, "cost_fixed": 0.0, "cost_logistics": 4216.35, "cost_total": 4216.35}, {"year": 2024, "req": 24119, "container": "MRSU328944-4", "customer": "Bayer", "lote": "240166", "qty_kg": 20000, "delivery_date": "2024-11-29", "payment_date": "2025-02-19", "payment_days": 82, "cost_port": 553.0, "cost_port_wh": 511.27, "cost_wh": 255.0, "cost_transport": 785.88, "cost_commission": 31275, "cost_fixed": 0.0, "cost_logistics": 2105.15, "cost_total": 2105.15}, {"year": 2024, "req": 24140, "container": "MRKU521708-1", "customer": "Bracco", "lote": "240176", "qty_kg": 20000, "delivery_date": "2024-12-05", "payment_date": "2025-03-04", "payment_days": 89, "cost_port": 478.0, "cost_port_wh": 511.27, "cost_wh": 213.5, "cost_transport": 2340.84, "cost_commission": 30150, "cost_fixed": 0.0, "cost_logistics": 3543.61, "cost_total": 3543.61}, {"year": 2024, "req": 24146, "container": "MRSU574713-0", "customer": "Karl Bucher", "lote": "240209", "qty_kg": 5000, "delivery_date": "2024-12-05", "payment_date": null, "payment_days": null, "cost_port": 198.5, "cost_port_wh": 212.32, "cost_wh": 204.32, "cost_transport": 960.89, "cost_commission": null, "cost_fixed": 0.0, "cost_logistics": 1576.04, "cost_total": 1576.04}, {"year": 2024, "req": 24146, "container": "MRSU574713-0", "customer": "Solvay Italia", "lote": "240168", "qty_kg": 7040, "delivery_date": "2025-01-14", "payment_date": "2025-04-06", "payment_days": 82, "cost_port": 279.5, "cost_port_wh": 298.95, "cost_wh": 287.68, "cost_transport": 1352.93, "cost_commission": 11484, "cost_fixed": 0.0, "cost_logistics": 2219.06, "cost_total": 2219.06}, {"year": 2024, "req": 24154, "container": "BSIU829721-1", "customer": "Merck", "lote": "240178", "qty_kg": 20000, "delivery_date": "2024-11-29", "payment_date": "2024-12-28", "payment_days": 29, "cost_port": 430.0, "cost_port_wh": 511.27, "cost_wh": 245.0, "cost_transport": 1222.94, "cost_commission": 31950, "cost_fixed": 0.0, "cost_logistics": 2409.21, "cost_total": 2409.21}, {"year": 2024, "req": 24162, "container": "HLXU862199-0", "customer": "Troy Europe", "lote": "240171-240172", "qty_kg": 18000, "delivery_date": "2024-12-03", "payment_date": "2025-02-02", "payment_days": 61, "cost_port": 495.0, "cost_port_wh": 551.27, "cost_wh": 233.0, "cost_transport": 804.57, "cost_commission": 27540, "cost_fixed": 0.0, "cost_logistics": 2083.84, "cost_total": 2083.84}, {"year": 2024, "req": 24124, "container": "MRSU513919-2", "customer": "Merck", "lote": "240183", "qty_kg": 20000, "delivery_date": "2024-12-10", "payment_date": "2025-01-08", "payment_days": 29, "cost_port": 553.0, "cost_port_wh": 511.27, "cost_wh": 297.0, "cost_transport": 1244.59, "cost_commission": 31162.5, "cost_fixed": 0.0, "cost_logistics": 2605.86, "cost_total": 2605.86}, {"year": 2024, "req": 24120, "container": "HASU511595-0", "customer": "Bayer", "lote": "240184", "qty_kg": 20000, "delivery_date": "2024-12-13", "payment_date": "2025-03-12", "payment_days": 89, "cost_port": 563.0, "cost_port_wh": 520.32, "cost_wh": 193.0, "cost_transport": 782.58, "cost_commission": 31275, "cost_fixed": 0.0, "cost_logistics": 2058.9, "cost_total": 2058.9}, {"year": 2024, "req": 24141, "container": "UETU634105-3", "customer": "Bracco", "lote": "240193", "qty_kg": 20000, "delivery_date": "2024-12-16", "payment_date": "2025-03-13", "payment_days": 87, "cost_port": 555.0, "cost_port_wh": 560.32, "cost_wh": 176.0, "cost_transport": 2340.84, "cost_commission": 30150, "cost_fixed": 0.0, "cost_logistics": 3632.16, "cost_total": 3632.16}, {"year": 2025, "req": 24174, "container": "HLBU196151-6", "customer": "Bracco", "lote": "240208", "qty_kg": 20000, "delivery_date": "2025-01-16", "payment_date": "2025-04-15", "payment_days": 89, "cost_port": 482.61, "cost_port_wh": 505.34, "cost_wh": 273.24, "cost_transport": 2836.93, "cost_commission": 30375, "cost_fixed": 3788.75, "cost_logistics": 4098.12, "cost_total": 4098.12}, {"year": 2025, "req": 24174, "container": "HLBU196151-6", "customer": "Lakeland", "lote": "240209", "qty_kg": 3000, "delivery_date": null, "payment_date": null, "payment_days": null, "cost_port": 72.39, "cost_port_wh": 75.8, "cost_wh": 40.99, "cost_transport": 425.54, "cost_commission": null, "cost_fixed": 568.31, "cost_logistics": 614.72, "cost_total": 614.72}, {"year": 2025, "req": 24177, "container": "CAAU236125-4 fyco", "customer": "Merck", "lote": "240201", "qty_kg": 20000, "delivery_date": "2025-01-24", "payment_date": "2025-02-26", "payment_days": 33, "cost_port": 1490.5, "cost_port_wh": 691.99, "cost_wh": 206.29, "cost_transport": 1294.37, "cost_commission": 31837.5, "cost_fixed": 3788.75, "cost_logistics": 3683.15, "cost_total": 3683.15}, {"year": 2025, "req": 24180, "container": "CAAU528080-8 fyco", "customer": "Lakeland", "lote": "240205", "qty_kg": 3000, "delivery_date": "2025-02-07", "payment_date": "2025-03-08", "payment_days": 29, "cost_port": 115.5, "cost_port_wh": 128.51, "cost_wh": 35.9, "cost_transport": 597.8, "cost_commission": 5062.5, "cost_fixed": 568.31, "cost_logistics": 877.7, "cost_total": 877.7}, {"year": 2025, "req": 24180, "container": 0, "customer": "Solvay Italia", "lote": "240218", "qty_kg": 7040, "delivery_date": "2025-02-04", "payment_date": "2025-05-04", "payment_days": 89, "cost_port": 271.03, "cost_port_wh": 301.57, "cost_wh": 84.23, "cost_transport": 1402.83, "cost_commission": 11800.8, "cost_fixed": 1333.64, "cost_logistics": 2059.67, "cost_total": 2059.67}, {"year": 2025, "req": 24180, "container": 0, "customer": "Lakeland", "lote": "240219", "qty_kg": 6000, "delivery_date": "2025-02-07", "payment_date": "2025-03-08", "payment_days": 29, "cost_port": 230.99, "cost_port_wh": 257.02, "cost_wh": 71.79, "cost_transport": 1195.6, "cost_commission": 10125, "cost_fixed": 1136.62, "cost_logistics": 1755.4, "cost_total": 1755.4}, {"year": 2025, "req": 24186, "container": "MRSU652739-8 fyco", "customer": "Troy Europe", "lote": "240200", "qty_kg": 18000, "delivery_date": "2025-01-24", "payment_date": "2025-03-28", "payment_days": 63, "cost_port": 595.5, "cost_port_wh": 744.6, "cost_wh": 197.31, "cost_transport": 836.76, "cost_commission": 28046.25, "cost_fixed": 3409.87, "cost_logistics": 2374.17, "cost_total": 2374.17}, {"year": 2025, "req": 24187, "container": "CAAU902011-5", "customer": "Justesa", "lote": "240226", "qty_kg": 20000, "delivery_date": "2025-02-05", "payment_date": "2025-04-04", "payment_days": 58, "cost_port": 565.5, "cost_port_wh": 541.13, "cost_wh": 200.72, "cost_transport": 4035.24, "cost_commission": 31725, "cost_fixed": 3788.75, "cost_logistics": 5342.59, "cost_total": 5342.59}, {"year": 2025, "req": 25012, "container": "HAMU112735-5 fyco", "customer": "Merck", "lote": "250002", "qty_kg": 20000, "delivery_date": "2025-02-21", "payment_date": "2025-03-23", "payment_days": 30, "cost_port": 545.5, "cost_port_wh": 656.24, "cost_wh": 191.88, "cost_transport": 1305.63, "cost_commission": 31837.5, "cost_fixed": 3788.75, "cost_logistics": 2699.25, "cost_total": 2699.25}, {"year": 2025, "req": 25042, "container": "FANU198716-9 fyco", "customer": "Justesa (Bayer)", "lote": "250015", "qty_kg": 8000, "delivery_date": "2025-03-13", "payment_date": "2025-05-13", "payment_days": 61, "cost_port": 236.6, "cost_port_wh": 403.52, "cost_wh": 127.19, "cost_transport": 1014.37, "cost_commission": 12690, "cost_fixed": 1515.5, "cost_logistics": 1781.69, "cost_total": 1781.69}, {"year": 2025, "req": 25042, "container": "FANU198716-9 fyco", "customer": "Bayer", "lote": "250015", "qty_kg": 12000, "delivery_date": "2025-05-30", "payment_date": "2025-08-28", "payment_days": 90, "cost_port": 354.9, "cost_port_wh": 605.29, "cost_wh": 190.79, "cost_transport": 1521.56, "cost_commission": 19035, "cost_fixed": 2273.25, "cost_logistics": 2672.53, "cost_total": 2672.53}, {"year": 2025, "req": 25044, "container": "CAAU952819-5 scan", "customer": "Troy Europe", "lote": "250018", "qty_kg": 18000, "delivery_date": "2025-02-26", "payment_date": "2025-04-27", "payment_days": 60, "cost_port": 565.5, "cost_port_wh": 1008.34, "cost_wh": 219.34, "cost_transport": 844.04, "cost_commission": 28046.25, "cost_fixed": 3409.87, "cost_logistics": 2637.22, "cost_total": 2637.22}, {"year": 2025, "req": 25004, "container": "MRSU432608-0", "customer": "Thor UK", "lote": "250023", "qty_kg": 21600, "delivery_date": "2025-03-06", "payment_date": "2025-05-04", "payment_days": 59, "cost_port": 527.27, "cost_port_wh": 490.83, "cost_wh": 253.56, "cost_transport": 3404.29, "cost_commission": 34506, "cost_fixed": 4091.85, "cost_logistics": 4675.95, "cost_total": 4675.95}, {"year": 2025, "req": 25004, "container": "MRSU432608-0", "customer": "Lakeland", "lote": "250024", "qty_kg": 3000, "delivery_date": "2025-03-06", "payment_date": "2025-04-04", "payment_days": 29, "cost_port": 73.23, "cost_port_wh": 68.17, "cost_wh": 35.22, "cost_transport": 472.82, "cost_commission": 5062.5, "cost_fixed": 568.31, "cost_logistics": 649.44, "cost_total": 649.44}, {"year": 2025, "req": 25013, "container": "HLXU109660-5", "customer": "Merck", "lote": "250036", "qty_kg": 20000, "delivery_date": "2025-03-27", "payment_date": "2025-04-25", "payment_days": 29, "cost_port": 591.5, "cost_port_wh": 636.54, "cost_wh": 200.72, "cost_transport": 1305.63, "cost_commission": 31837.5, "cost_fixed": 3788.75, "cost_logistics": 2734.39, "cost_total": 2734.39}, {"year": 2025, "req": 25023, "container": "CAIU268061-3", "customer": "Bracco", "lote": "250031", "qty_kg": 20000, "delivery_date": "2025-03-31", "payment_date": "2025-06-26", "payment_days": 87, "cost_port": 596.67, "cost_port_wh": 605.96, "cost_wh": 266.76, "cost_transport": 2695.11, "cost_commission": 30375, "cost_fixed": 3788.75, "cost_logistics": 4164.5, "cost_total": 4164.5}, {"year": 2025, "req": 25023, "container": "CAIU268061-3", "customer": "Blau Chemie", "lote": "250043", "qty_kg": 1000, "delivery_date": "2025-03-31", "payment_date": "2025-04-30", "payment_days": 30, "cost_port": 29.83, "cost_port_wh": 30.3, "cost_wh": 13.34, "cost_transport": 134.76, "cost_commission": 1777.5, "cost_fixed": 189.44, "cost_logistics": 208.23, "cost_total": 208.23}, {"year": 2025, "req": 25058, "container": "UETU639176-9 fyco", "customer": "Bayer", "lote": "250034", "qty_kg": 20000, "delivery_date": "2025-05-30", "payment_date": "2025-08-28", "payment_days": 90, "cost_port": 4675.39, "cost_port_wh": 679.9, "cost_wh": 327.6, "cost_transport": 806.23, "cost_commission": 31725, "cost_fixed": 3788.75, "cost_logistics": 6489.12, "cost_total": 6489.12}, {"year": 2025, "req": 25014, "container": "FCIU631570-4", "customer": "Merck", "lote": "250052", "qty_kg": 20000, "delivery_date": "2025-04-25", "payment_date": "2025-05-23", "payment_days": 28, "cost_port": 555.5, "cost_port_wh": 484.27, "cost_wh": 229.68, "cost_transport": 1283.12, "cost_commission": 31837.5, "cost_fixed": 3788.75, "cost_logistics": 2552.57, "cost_total": 2552.57}, {"year": 2025, "req": 25006, "container": "HLBU223450-6", "customer": "Solvay Italia", "lote": "250078", "qty_kg": 7040, "delivery_date": "2025-05-07", "payment_date": "2025-08-04", "payment_days": 89, "cost_port": 277.75, "cost_port_wh": 263.51, "cost_wh": 199.71, "cost_transport": 1544.9, "cost_commission": 11800.8, "cost_fixed": 1333.64, "cost_logistics": 2285.87, "cost_total": 2285.87}, {"year": 2025, "req": 25006, "container": "HLBU223450-6", "customer": "Solvay Italia", "lote": "250079", "qty_kg": 7040, "delivery_date": "2025-06-17", "payment_date": "2025-09-03", "payment_days": 78, "cost_port": 277.75, "cost_port_wh": 263.51, "cost_wh": 199.71, "cost_transport": 1544.9, "cost_commission": 11959.2, "cost_fixed": 1333.64, "cost_logistics": 2285.87, "cost_total": 2285.87}, {"year": 2025, "req": 25026, "container": "UASU104647-4", "customer": "Bracco", "lote": "250074", "qty_kg": 20000, "delivery_date": "2025-05-20", "payment_date": "2025-08-17", "payment_days": 89, "cost_port": 555.5, "cost_port_wh": 527.02, "cost_wh": 211.54, "cost_transport": 2370.93, "cost_commission": 30375, "cost_fixed": 3788.75, "cost_logistics": 3664.99, "cost_total": 3664.99}, {"year": 2025, "req": 25091, "container": "HAMU230726-4", "customer": "Troy Europe", "lote": "250089", "qty_kg": 18000, "delivery_date": "2025-05-21", "payment_date": "2025-07-19", "payment_days": 59, "cost_port": 555.5, "cost_port_wh": 527.02, "cost_wh": 204.5, "cost_transport": 814.93, "cost_commission": 28755, "cost_fixed": 3409.87, "cost_logistics": 2101.95, "cost_total": 2101.95}, {"year": 2025, "req": 25015, "container": "FDCU031280-0", "customer": "Merck", "lote": "250082", "qty_kg": 20000, "delivery_date": "2025-06-05", "payment_date": "2025-07-04", "payment_days": 29, "cost_port": 725.5, "cost_port_wh": 547.02, "cost_wh": 211.5, "cost_transport": 1260.6, "cost_commission": 31837.5, "cost_fixed": 3788.75, "cost_logistics": 2744.62, "cost_total": 2744.62}, {"year": 2025, "req": 25005, "container": "HAMU107359-9", "customer": "Thor UK", "lote": "250094", "qty_kg": 21600, "delivery_date": "2025-06-10", "payment_date": "2025-08-09", "payment_days": 60, "cost_port": 555.5, "cost_port_wh": 495.78, "cost_wh": 195.55, "cost_transport": 3006.32, "cost_commission": 34506, "cost_fixed": 4091.85, "cost_logistics": 4253.15, "cost_total": 4253.15}, {"year": 2025, "req": 25095, "container": "BMOU225535-8", "customer": "Solvay Italia", "lote": "250110", "qty_kg": 7040, "delivery_date": "2025-07-08", "payment_date": "2025-10-04", "payment_days": 88, "cost_port": 702.5, "cost_port_wh": 498.78, "cost_wh": 218.56, "cost_transport": 1496.12, "cost_commission": 11800.8, "cost_fixed": 1333.64, "cost_logistics": 2915.96, "cost_total": 2915.96}, {"year": 2025, "req": 25129, "container": "GLDU943946-4", "customer": "Thor UK", "lote": "250138", "qty_kg": 21600, "delivery_date": "2025-08-15", "payment_date": "2025-10-14", "payment_days": 60, "cost_port": 564.5, "cost_port_wh": 508.52, "cost_wh": 233.43, "cost_transport": 3073.74, "cost_commission": 35964, "cost_fixed": 4091.85, "cost_logistics": 4380.19, "cost_total": 4380.19}, {"year": 2025, "req": 25062, "container": "TGBU558966-6", "customer": "Justesa (Bayer)", "lote": "250155", "qty_kg": 20000, "delivery_date": "2025-09-17", "payment_date": "2025-11-16", "payment_days": 60, "cost_port": 602.5, "cost_port_wh": 581.13, "cost_wh": 458.85, "cost_transport": 3827.43, "cost_commission": 31725, "cost_fixed": 3788.75, "cost_logistics": 5469.91, "cost_total": 5469.91}, {"year": 2025, "req": 25178, "container": "MSNU201011-6", "customer": "Karl Bucher", "lote": "250177", "qty_kg": 5000, "delivery_date": "2025-09-30", "payment_date": "2025-10-30", "payment_days": 30, "cost_port": 381.38, "cost_port_wh": 257.28, "cost_wh": 105.91, "cost_transport": 979.24, "cost_commission": 8493.75, "cost_fixed": 947.19, "cost_logistics": 1723.81, "cost_total": 1723.81}, {"year": 2025, "req": 25178, "container": "MSNU201011-6", "customer": "Evans Vanodine", "lote": "250178", "qty_kg": 4800, "delivery_date": "2025-10-01", "payment_date": "2025-10-30", "payment_days": 29, "cost_port": 366.12, "cost_port_wh": 246.99, "cost_wh": 101.68, "cost_transport": 940.07, "cost_commission": 8127, "cost_fixed": 909.3, "cost_logistics": 1654.86, "cost_total": 1654.86}, {"year": 2025, "req": 25132, "container": "HLBU359875-5", "customer": "Thor UK", "lote": "250206", "qty_kg": 21600, "delivery_date": "2025-11-20", "payment_date": "2026-01-18", "payment_days": 59, "cost_port": 747.5, "cost_port_wh": 508.52, "cost_wh": 233.73, "cost_transport": 2978.74, "cost_commission": 35964, "cost_fixed": 4091.85, "cost_logistics": 4468.49, "cost_total": 4468.49}, {"year": 2025, "req": 25096, "container": "BSIU330973-1", "customer": "Solvay Italia", "lote": "250228", "qty_kg": 3600, "delivery_date": "2025-11-28", "payment_date": "2026-02-06", "payment_days": 70, "cost_port": 324.86, "cost_port_wh": 257.12, "cost_wh": 107.02, "cost_transport": 917.01, "cost_commission": 6115.5, "cost_fixed": 681.97, "cost_logistics": 1606.0, "cost_total": 1606.0}, {"year": 2025, "req": 25096, "container": "BSIU330973-1", "customer": "Solvay Italia", "lote": "250227", "qty_kg": 3520, "delivery_date": "2025-12-17", "payment_date": "2026-03-06", "payment_days": 79, "cost_port": 317.64, "cost_port_wh": 251.4, "cost_wh": 104.64, "cost_transport": 896.63, "cost_commission": 5979.6, "cost_fixed": 666.82, "cost_logistics": 1570.32, "cost_total": 1570.32}, {"year": 2026, "req": 25212, "container": "CAAU209049-2", "customer": "Troy Europe", "lote": "250239", "qty_kg": 18000, "delivery_date": "2026-01-06", "payment_date": "2026-03-06", "payment_days": 59, "cost_port": 642.5, "cost_port_wh": 517.02, "cost_wh": 242.05, "cost_transport": 886.25, "cost_commission": 29565, "cost_fixed": 986.82, "cost_logistics": 2287.82, "cost_total": 2287.82}, {"year": 2026, "req": 25231, "container": "UETU638390-6", "customer": "Bayer", "lote": "250269", "qty_kg": 20000, "delivery_date": "2026-02-13", "payment_date": "2026-04-13", "payment_days": 59, "cost_port": 660.0, "cost_port_wh": 608.01, "cost_wh": 233.8, "cost_transport": 878.61, "cost_commission": 33750, "cost_fixed": 1096.46, "cost_logistics": 2380.42, "cost_total": 2380.42}, {"year": 2026, "req": 25107, "container": "FANU369160-1", "customer": "Solvay Italia", "lote": "250274", "qty_kg": 3520, "delivery_date": "2026-02-11", "payment_date": "2026-05-04", "payment_days": 82, "cost_port": 330.0, "cost_port_wh": 304.0, "cost_wh": 80.32, "cost_transport": 792.57, "cost_commission": 5979.6, "cost_fixed": 192.98, "cost_logistics": 1506.89, "cost_total": 1506.89}, {"year": 2026, "req": 25107, "container": "FANU369160-1", "customer": "Solvay Italia", "lote": "250274", "qty_kg": 3520, "delivery_date": "2026-02-13", "payment_date": "2026-05-04", "payment_days": 80, "cost_port": 330.0, "cost_port_wh": 304.0, "cost_wh": 80.32, "cost_transport": 792.57, "cost_commission": 5979.6, "cost_fixed": 192.98, "cost_logistics": 1506.89, "cost_total": 1506.89}, {"year": 2026, "req": 26015, "container": "TEMU160637-0", "customer": "Bracco", "lote": "260006", "qty_kg": 20000, "delivery_date": "2026-02-18", "payment_date": "2026-05-19", "payment_days": 90, "cost_port": 660.0, "cost_port_wh": 551.33, "cost_wh": 238.79, "cost_transport": 2622.87, "cost_commission": 32670, "cost_fixed": 1096.46, "cost_logistics": 4072.99, "cost_total": 4072.99}, {"year": 2026, "req": 26014, "container": "EQUU201179-6", "customer": "Merck", "lote": "260005", "qty_kg": 20000, "delivery_date": "2026-02-16", "payment_date": "2026-04-20", "payment_days": 63, "cost_port": 660.0, "cost_port_wh": 551.33, "cost_wh": 238.79, "cost_transport": 1483.56, "cost_commission": 33853.5, "cost_fixed": 1096.46, "cost_logistics": 2933.68, "cost_total": 2933.68}, {"year": 2026, "req": 26017, "container": "HAMU164610-8", "customer": "Bayer", "lote": "260024", "qty_kg": 20000, "delivery_date": "2026-03-24", "payment_date": "2026-05-22", "payment_days": 59, "cost_port": 660.0, "cost_port_wh": 612.96, "cost_wh": 236.35, "cost_transport": 944.99, "cost_commission": 33750, "cost_fixed": 1096.46, "cost_logistics": 2454.3, "cost_total": 2454.3}, {"year": 2026, "req": 26018, "container": "HLXU141131-1", "customer": "Merck", "lote": "260025", "qty_kg": 20000, "delivery_date": "2026-03-24", "payment_date": "2026-05-22", "payment_days": 59, "cost_port": 660.0, "cost_port_wh": 555.79, "cost_wh": 228.16, "cost_transport": 1406.37, "cost_commission": 33853.5, "cost_fixed": 1096.46, "cost_logistics": 2850.32, "cost_total": 2850.32}, {"year": 2026, "req": 26037, "container": "UACU3920376", "customer": "Solvay Italia", "lote": "260034", "qty_kg": 7040, "delivery_date": "2026-04-07", "payment_date": "2026-07-04", "payment_days": 88, "cost_port": 960.0, "cost_port_wh": 555.79, "cost_wh": 191.44, "cost_transport": 1559.12, "cost_commission": 12196.8, "cost_fixed": 385.95, "cost_logistics": 3266.35, "cost_total": 3266.35}, {"year": 2026, "req": 26023, "container": "HLXU112106-1", "customer": "Thor UK", "lote": "260019", "qty_kg": 21600, "delivery_date": "2026-05-05", "payment_date": "2026-06-03", "payment_days": 29, "cost_port": 897.5, "cost_port_wh": 613.77, "cost_wh": 248.44, "cost_transport": 3555.0, "cost_commission": 36450, "cost_fixed": 1184.18, "cost_logistics": 5314.71, "cost_total": 5314.71}, {"year": 2026, "req": 26041, "container": "MEDU6008336", "customer": "Bracco", "lote": "260041", "qty_kg": 20000, "delivery_date": "2026-04-22", "payment_date": "2026-07-21", "payment_days": 90, "cost_port": 520.0, "cost_port_wh": 613.77, "cost_wh": 260.56, "cost_transport": 2934.06, "cost_commission": 32670, "cost_fixed": 1096.46, "cost_logistics": 4328.39, "cost_total": 4328.39}, {"year": 2026, "req": 26029, "container": "HAMU338916-4", "customer": "Bayer", "lote": "260044", "qty_kg": 20000, "delivery_date": "2026-04-22", "payment_date": "2026-06-21", "payment_days": 60, "cost_port": 670.0, "cost_port_wh": 677.19, "cost_wh": 283.6, "cost_transport": 1033.02, "cost_commission": 33750, "cost_fixed": 1096.46, "cost_logistics": 2663.81, "cost_total": 2663.81}, {"year": 2026, "req": 26046, "container": "MSBU266603-0", "customer": "Bracco", "lote": "260061", "qty_kg": 20000, "delivery_date": "2026-05-28", "payment_date": "2026-08-25", "payment_days": 89, "cost_port": 520.0, "cost_port_wh": 652.15, "cost_wh": 269.91, "cost_transport": 3000.74, "cost_commission": 32670, "cost_fixed": 1096.46, "cost_logistics": 4442.8, "cost_total": 4442.8}, {"year": 2026, "req": 26068, "container": "UACU4030192", "customer": "Troy Europe", "lote": "260076", "qty_kg": 18000, "delivery_date": "2026-05-27", "payment_date": "2026-07-25", "payment_days": 59, "cost_port": 670.0, "cost_port_wh": 627.15, "cost_wh": 220.45, "cost_transport": 1031.41, "cost_commission": 30496.5, "cost_fixed": 986.82, "cost_logistics": 2549.01, "cost_total": 2549.01}, {"year": 2026, "req": 26058, "container": "FBIU046485-9", "customer": "Bracco", "lote": "260083", "qty_kg": 20000, "delivery_date": "2026-06-10", "payment_date": "2026-09-07", "payment_days": 89, "cost_port": 670.0, "cost_port_wh": 609.31, "cost_wh": 251.21, "cost_transport": 2911.83, "cost_commission": 32670, "cost_fixed": 1096.46, "cost_logistics": 4442.35, "cost_total": 4442.35}, {"year": 2026, "req": 26059, "container": "HLXU125485-0", "customer": "Bracco", "lote": "260087", "qty_kg": 20000, "delivery_date": "2026-06-17", "payment_date": "2026-09-15", "payment_days": 90, "cost_port": 670.0, "cost_port_wh": 609.31, "cost_wh": 223.16, "cost_transport": 2911.83, "cost_commission": 32670, "cost_fixed": 1096.46, "cost_logistics": 4414.3, "cost_total": 4414.3}, {"year": 2026, "req": 26047, "container": "UACU401266-6", "customer": "Merck", "lote": "260092", "qty_kg": 20000, "delivery_date": "2026-06-30", "payment_date": "2026-08-31", "payment_days": 62, "cost_port": 670.0, "cost_port_wh": 609.31, "cost_wh": 235.81, "cost_transport": 1548.18, "cost_commission": 33853.5, "cost_fixed": 1096.46, "cost_logistics": 3063.3, "cost_total": 3063.3}, {"year": 2026, "req": 26066, "container": "TRHU285882-6", "customer": "Solvay Italia", "lote": "260100", "qty_kg": 3600, "delivery_date": "2026-07-01", "payment_date": "2026-09-03", "payment_days": 64, "cost_port": 287.14, "cost_port_wh": 261.13, "cost_wh": 95.22, "cost_transport": 1069.25, "cost_commission": 6237, "cost_fixed": 197.36, "cost_logistics": 1712.74, "cost_total": 1712.74}, {"year": 2026, "req": 26066, "container": "TRHU285882-6", "customer": "Lakeland", "lote": "260101", "qty_kg": 1200, "delivery_date": "2026-07-03", "payment_date": "2026-08-01", "payment_days": 29, "cost_port": 95.71, "cost_port_wh": 87.04, "cost_wh": 31.74, "cost_transport": 356.42, "cost_commission": 2112.75, "cost_fixed": 65.79, "cost_logistics": 570.91, "cost_total": 570.91}, {"year": 2026, "req": 26066, "container": "TRHU285882-6", "customer": "Solvay Italia", "lote": "260100", "qty_kg": 3600, "delivery_date": "2026-07-22", "payment_date": "2026-10-04", "payment_days": 74, "cost_port": 287.14, "cost_port_wh": 261.13, "cost_wh": 95.22, "cost_transport": 1069.25, "cost_commission": 6237, "cost_fixed": 197.36, "cost_logistics": 1712.74, "cost_total": 1712.74}, {"year": 2026, "req": 26099, "container": "HLBU227953-7", "customer": "Troy Europe", "lote": "260126", "qty_kg": 18000, "delivery_date": "2026-08-04", "payment_date": "2026-10-03", "payment_days": 60, "cost_port": 670.0, "cost_port_wh": 626.35, "cost_wh": 203.95, "cost_transport": 1046.05, "cost_commission": 30780, "cost_fixed": 986.82, "cost_logistics": 2546.35, "cost_total": 2546.35}];
+
+const fmtInt = n => new Intl.NumberFormat('es-CL', {maximumFractionDigits:0}).format(n);
+const fmtMoney = n => '$' + new Intl.NumberFormat('es-CL', {maximumFractionDigits:0}).format(n);
+const fmtMoney2 = n => '$' + new Intl.NumberFormat('es-CL', {minimumFractionDigits:2, maximumFractionDigits:2}).format(n);
+const compactNum = n => n>=1000 ? (n/1000).toFixed(n%1000===0?0:1)+'k' : fmtInt(n);
+const compactMoney = n => '$' + (n>=1000 ? (n/1000).toFixed(n%1000<50?0:1)+'k' : fmtInt(n));
+
+const state = { year: null, customer: '', search: '', sortKey: 'year', sortDir: 1 };
+
+const CAT_COLORS = { port:'#E0A458', transit:'#6FA3D8', wh:'#7FB88F', final:'#D08494', fixed:'#8C8FBF', commission:'#4FB8AE' };
+
+function populateFilters(){
+  const years = [...new Set(DATA.map(d=>d.year))].sort();
+  const yearPills = document.getElementById('yearPills');
+  const allPill = document.createElement('button');
+  allPill.className='pill active'; allPill.textContent='Todos los años'; allPill.dataset.year='';
+  yearPills.appendChild(allPill);
+  years.forEach(y=>{
+    const b = document.createElement('button');
+    b.className='pill'; b.textContent=y; b.dataset.year=y;
+    yearPills.appendChild(b);
+  });
+  yearPills.addEventListener('click', e=>{
+    const btn = e.target.closest('.pill'); if(!btn) return;
+    state.year = btn.dataset.year || null;
+    [...yearPills.children].forEach(c=>c.classList.toggle('active', c===btn));
+    render();
+  });
+
+  const customers = [...new Set(DATA.map(d=>d.customer))].sort();
+  const customerPills = document.getElementById('customerPills');
+  const allCustPill = document.createElement('button');
+  allCustPill.className='pill active'; allCustPill.textContent='Todos'; allCustPill.dataset.customer='';
+  customerPills.appendChild(allCustPill);
+  customers.forEach(c=>{
+    const b = document.createElement('button');
+    b.className='pill'; b.textContent=c; b.dataset.customer=c;
+    customerPills.appendChild(b);
+  });
+  customerPills.addEventListener('click', e=>{
+    const btn = e.target.closest('.pill'); if(!btn) return;
+    state.customer = btn.dataset.customer || '';
+    [...customerPills.children].forEach(c=>c.classList.toggle('active', c===btn));
+    render();
+  });
+
+  document.getElementById('searchBox').addEventListener('input', e=>{
+    state.search = e.target.value.trim().toLowerCase(); render();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    state.year=null; state.customer=''; state.search='';
+    document.getElementById('searchBox').value='';
+    [...yearPills.children].forEach(c=>c.classList.toggle('active', c===allPill));
+    [...customerPills.children].forEach(c=>c.classList.toggle('active', c===allCustPill));
+    render();
+  });
+
+  document.querySelectorAll('#dataTable thead th').forEach(th=>{
+    const key = th.dataset.key;
+    const label = th.textContent;
+    th.innerHTML = `<button><span>${label}</span><span class="arrow">▲▼</span></button>`;
+    th.addEventListener('click', ()=>{
+      if(state.sortKey===key){ state.sortDir *= -1; } else { state.sortKey=key; state.sortDir=1; }
+      document.querySelectorAll('#dataTable thead th').forEach(t=>t.classList.remove('sorted'));
+      th.classList.add('sorted');
+      render();
+    });
+  });
+}
+
+function getFiltered(){
+  return DATA.filter(d=>{
+    if(state.year && String(d.year)!==String(state.year)) return false;
+    if(state.customer && d.customer!==state.customer) return false;
+    if(state.search){
+      const hay = `${d.container} ${d.lote} ${d.req} ${d.customer}`.toLowerCase();
+      if(!hay.includes(state.search)) return false;
+    }
+    return true;
+  });
+}
+
+function toggleEmpty(id, show){
+  const el = document.getElementById(id);
+  if(el) el.classList.toggle('show', !!show);
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function render(){
+  const rows = getFiltered();
+  renderKPIs(rows);
+  renderTable(rows);
+  const steps = [renderStack, renderDonut, renderTime, renderPay, renderFixed, renderSharedContainers];
+  steps.forEach(fn=>{
+    try{ fn(rows); }
+    catch(e){ console.error('Error al graficar', fn.name, e); }
+  });
+}
+
+function renderKPIs(rows){
+  const totalVol = rows.reduce((s,r)=>s+r.qty_kg,0);
+  const logCost = rows.reduce((s,r)=>s+r.cost_logistics,0);
+  const fixedCost = rows.reduce((s,r)=>s+r.cost_fixed,0);
+  const commCost = rows.reduce((s,r)=>s+(r.cost_commission||0),0);
+  const grandCost = logCost + fixedCost + commCost;
+
+  document.getElementById('kpiVol').textContent = fmtInt(totalVol);
+
+  document.getElementById('kpiTotalPerKg').textContent = totalVol ? fmtMoney2(grandCost/totalVol) : '—';
+  document.getElementById('kpiTotalUSD').textContent = fmtMoney(grandCost);
+
+  document.getElementById('kpiLogPerKg').textContent = totalVol ? fmtMoney2(logCost/totalVol) : '—';
+  document.getElementById('kpiLogUSD').textContent = fmtMoney(logCost);
+
+  document.getElementById('kpiFixedPerKg').textContent = totalVol ? fmtMoney2(fixedCost/totalVol) : '—';
+  document.getElementById('kpiFixedUSD').textContent = fmtMoney(fixedCost);
+
+  document.getElementById('kpiCommPerKg').textContent = totalVol ? fmtMoney2(commCost/totalVol) : '—';
+  document.getElementById('kpiCommUSD').textContent = fmtMoney(commCost);
+
+  const withPay = rows.filter(r=>r.payment_days!=null && r.payment_days>=0);
+  const avgPay = withPay.length ? withPay.reduce((s,r)=>s+r.payment_days,0)/withPay.length : null;
+  document.getElementById('kpiPayDays').textContent = avgPay!=null ? Math.round(avgPay) + 'd' : '—';
+  const kgWithPay = withPay.reduce((s,r)=>s+r.qty_kg,0);
+  const wPay = kgWithPay ? withPay.reduce((s,r)=>s+r.payment_days*r.qty_kg,0)/kgWithPay : null;
+  document.getElementById('kpiPayDaysW').textContent = wPay!=null ? Math.round(wPay) + 'd' : '—';
+  document.getElementById('kpiPaySub').textContent = `${withPay.length} de ${rows.length} con dato registrado`;
+}
+
+function payClass(d){
+  if(d==null) return 'pay-none';
+  if(d<=30) return 'pay-fast';
+  if(d<=60) return 'pay-mid';
+  return 'pay-slow';
+}
+
+function renderTable(rows){
+  const sorted = [...rows].sort((a,b)=>{
+    let va = a[state.sortKey], vb = b[state.sortKey];
+    if(va==null) va = -Infinity; if(vb==null) vb = -Infinity;
+    if(typeof va === 'string') return va.localeCompare(vb) * state.sortDir;
+    return (va-vb) * state.sortDir;
+  });
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = sorted.map(r=>`
+    <tr>
+      <td class="mono">${r.year}</td>
+      <td class="customer">${escapeHtml(r.customer)}</td>
+      <td><span class="tag">Req ${escapeHtml(r.req)}</span><br><span style="font-size:11px;color:var(--ink-faint)">${escapeHtml(r.container)} · Lote ${escapeHtml(r.lote)}</span></td>
+      <td class="num mono">${fmtInt(r.qty_kg)}</td>
+      <td class="num mono">${fmtMoney(r.cost_port)}</td>
+      <td class="num mono">${fmtMoney(r.cost_port_wh)}</td>
+      <td class="num mono">${fmtMoney(r.cost_wh)}</td>
+      <td class="num mono">${fmtMoney(r.cost_transport)}</td>
+      <td class="num mono" style="color:var(--iodine-glow); font-weight:600;">${fmtMoney(r.cost_total)}</td>
+      <td class="num mono" style="color:var(--c-fixed);">${fmtMoney(r.cost_fixed)}</td>
+      <td>${r.payment_days!=null ? `<span class="pay-badge ${payClass(r.payment_days)}">${r.payment_days} d</span>` : '<span class="pay-none">s/d</span>'}</td>
+    </tr>
+  `).join('');
+  document.getElementById('countNote').textContent = `Mostrando ${rows.length} de ${DATA.length} ventas`;
+}
+
+function topCustomers(rows, n=8){
+  const map = {};
+  rows.forEach(r=>{
+    map[r.customer] = map[r.customer] || {customer:r.customer, port:0, transit:0, wh:0, final:0, fixed:0, commission:0, total:0, kg:0, reqs:new Set()};
+    map[r.customer].port += r.cost_port;
+    map[r.customer].transit += r.cost_port_wh;
+    map[r.customer].wh += r.cost_wh;
+    map[r.customer].final += r.cost_transport;
+    map[r.customer].fixed += r.cost_fixed;
+    map[r.customer].commission += (r.cost_commission || 0);
+    map[r.customer].total += r.cost_total;
+    map[r.customer].kg += r.qty_kg;
+    map[r.customer].reqs.add(r.req);
+  });
+  return Object.values(map).sort((a,b)=>b.total-a.total).slice(0,n);
+}
+
+/* ---------- SVG chart helpers (no external library, no CDN dependency) ---------- */
+
+function setSvg(svg, viewBoxW, viewBoxH, content){
+  svg.setAttribute('viewBox', `0 0 ${viewBoxW} ${viewBoxH}`);
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.innerHTML = content;
+}
+
+function gridLines(padL, padT, plotW, plotH, rows=4){
+  let s = '';
+  for(let i=0;i<=rows;i++){
+    const y = padT + (plotH/rows)*i;
+    s += `<line x1="${padL}" y1="${y}" x2="${padL+plotW}" y2="${y}" stroke="#2E2A3B" stroke-width="1"></line>`;
+  }
+  return s;
+}
+
+/* Horizontal stacked bar: top customers by total cost */
+function renderStack(rows){
+  const data0 = topCustomers(rows);
+  // convert to per-kg unit costs (logistics categories + commission, no fixed cost here)
+  const data = data0.map(d=>({
+    customer: d.customer,
+    reqCount: d.reqs.size,
+    port: d.kg ? d.port/d.kg : 0,
+    transit: d.kg ? d.transit/d.kg : 0,
+    wh: d.kg ? d.wh/d.kg : 0,
+    final: d.kg ? d.final/d.kg : 0,
+    commission: d.kg ? d.commission/d.kg : 0,
+    unitTotal: d.kg ? (d.port+d.transit+d.wh+d.final+d.commission)/d.kg : 0,
+  }));
+  const svg = document.getElementById('chartStack');
+  toggleEmpty('emptyStack', data.length===0);
+  if(data.length===0){ svg.innerHTML=''; return; }
+
+  const rowH = 44, topPad = 6;
+  const W = 640, H = data.length*rowH + topPad*2;
+  const labelW = 138, rightPad = 82;
+  const barX = labelW, barW = W - labelW - rightPad;
+  const barH = 20;
+
+  let content = '';
+  const segCount = 5;
+  const segW = barW / segCount;
+  data.forEach((d,i)=>{
+    const rowCenter = topPad + i*rowH + rowH/2;
+    const y = rowCenter - barH/2;
+    const segs = [
+      {v:d.port, c:CAT_COLORS.port},
+      {v:d.transit, c:CAT_COLORS.transit},
+      {v:d.wh, c:CAT_COLORS.wh},
+      {v:d.final, c:CAT_COLORS.final},
+      {v:d.commission, c:CAT_COLORS.commission},
+    ];
+    content += `<text x="${labelW-10}" y="${(rowCenter-3).toFixed(1)}" text-anchor="end" font-size="11.5" fill="#D8D2E8" font-family="Inter">${escapeHtml(d.customer)}</text>`;
+    content += `<text x="${labelW-10}" y="${(rowCenter+11).toFixed(1)}" text-anchor="end" font-size="9.5" fill="#756C8C" font-family="IBM Plex Mono">${d.reqCount} requerimiento${d.reqCount===1?'':'s'}</text>`;
+    segs.forEach((s,j)=>{
+      const x = barX + j*segW;
+      content += `<rect x="${x.toFixed(1)}" y="${y}" width="${(segW-2).toFixed(1)}" height="${barH}" fill="${s.c}" rx="2"></rect>`;
+      content += `<text x="${(x+segW/2-1).toFixed(1)}" y="${(y+barH/2+3.5).toFixed(1)}" text-anchor="middle" font-size="9" fill="#211D2B" font-family="IBM Plex Mono" font-weight="600">$${s.v.toFixed(2)}</text>`;
+    });
+    content += `<text x="${(barX+barW+8).toFixed(1)}" y="${(rowCenter+4).toFixed(1)}" font-size="11" fill="#A79FC0" font-family="IBM Plex Mono">$${d.unitTotal.toFixed(2)}/kg</text>`;
+  });
+  setSvg(svg, W, H, content);
+}
+
+/* Doughnut composition chart */
+function polarPoint(cx,cy,r,angleDeg){
+  const a = (angleDeg-90) * Math.PI/180;
+  return { x: cx + r*Math.cos(a), y: cy + r*Math.sin(a) };
+}
+function donutSegmentPath(cx,cy,rOuter,rInner,startAngle,endAngle){
+  const sweep = Math.min(endAngle-startAngle, 359.99);
+  endAngle = startAngle + sweep;
+  const largeArc = sweep > 180 ? 1 : 0;
+  const so = polarPoint(cx,cy,rOuter,startAngle);
+  const eo = polarPoint(cx,cy,rOuter,endAngle);
+  const ei = polarPoint(cx,cy,rInner,endAngle);
+  const si = polarPoint(cx,cy,rInner,startAngle);
+  return [
+    `M ${so.x.toFixed(2)} ${so.y.toFixed(2)}`,
+    `A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${eo.x.toFixed(2)} ${eo.y.toFixed(2)}`,
+    `L ${ei.x.toFixed(2)} ${ei.y.toFixed(2)}`,
+    `A ${rInner} ${rInner} 0 ${largeArc} 0 ${si.x.toFixed(2)} ${si.y.toFixed(2)}`,
+    'Z'
+  ].join(' ');
+}
+
+function renderDonut(rows){
+  const totals = { port:0, transit:0, wh:0, final:0, commission:0 };
+  rows.forEach(r=>{ totals.port+=r.cost_port; totals.transit+=r.cost_port_wh; totals.wh+=r.cost_wh; totals.final+=r.cost_transport; totals.commission+=(r.cost_commission||0); });
+  const grand = totals.port + totals.transit + totals.wh + totals.final + totals.commission;
+  const svg = document.getElementById('chartDonut');
+  toggleEmpty('emptyDonut', rows.length===0 || grand===0);
+  if(rows.length===0 || grand===0){ svg.innerHTML=''; return; }
+
+  const segs = [
+    {v:totals.port, c:CAT_COLORS.port},
+    {v:totals.transit, c:CAT_COLORS.transit},
+    {v:totals.wh, c:CAT_COLORS.wh},
+    {v:totals.final, c:CAT_COLORS.final},
+    {v:totals.commission, c:CAT_COLORS.commission},
+  ];
+  const cx=110, cy=105, rOuter=88, rInner=56;
+  const rMid = (rOuter+rInner)/2;
+  const segCount = 5;
+  const sweep = 360/segCount;
+  let angle = 0;
+  let content = '';
+  segs.forEach(s=>{
+    content += `<path d="${donutSegmentPath(cx,cy,rOuter,rInner,angle,angle+sweep)}" fill="${s.c}"></path>`;
+    const mid = polarPoint(cx,cy,rMid,angle+sweep/2);
+    content += `<text x="${mid.x.toFixed(1)}" y="${(mid.y+3).toFixed(1)}" text-anchor="middle" font-size="9" fill="#211D2B" font-family="IBM Plex Mono" font-weight="600">${compactMoney(s.v)}</text>`;
+    angle += sweep;
+  });
+  content += `<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="14" fill="#EEEAF6" font-family="Space Grotesk" font-weight="600">${fmtMoney(grand)}</text>`;
+  content += `<text x="${cx}" y="${cy+16}" text-anchor="middle" font-size="10.5" fill="#A79FC0" font-family="Inter">costo total</text>`;
+  setSvg(svg, 220, 210, content);
+}
+
+/* Volume (bars) + cost per kg (line) by quarter */
+function renderTime(rows){
+  const valid = rows.filter(r=>r.delivery_date);
+  const buckets = {};
+  valid.forEach(r=>{
+    const dt = new Date(r.delivery_date);
+    const q = Math.floor(dt.getMonth()/3)+1;
+    const key = `${r.year}-Q${q}`;
+    buckets[key] = buckets[key] || {vol:0, cost:0};
+    buckets[key].vol += r.qty_kg; buckets[key].cost += r.cost_total + (r.cost_commission || 0);
+  });
+  const labels = Object.keys(buckets).sort().slice(-8);
+  const vols = labels.map(k=>buckets[k].vol);
+  const perKg = labels.map(k=>buckets[k].vol ? buckets[k].cost/buckets[k].vol : 0);
+
+  const svg = document.getElementById('chartTime');
+  toggleEmpty('emptyTime', labels.length===0);
+  if(labels.length===0){ svg.innerHTML=''; return; }
+
+  const W=680, H=300, padL=54, padR=54, padT=30, padB=34;
+  const plotW = W-padL-padR, plotH = H-padT-padB;
+  const maxVol = Math.max(...vols, 1);
+  const maxPerKg = Math.max(...perKg, 0.01);
+  const n = labels.length;
+  const slot = plotW/n;
+  const bw = Math.min(slot*0.5, 46);
+
+  let content = gridLines(padL, padT, plotW, plotH, 4);
+
+  labels.forEach((lab,i)=>{
+    const cx = padL + (i+0.5)*slot;
+    const barH = (vols[i]/maxVol)*plotH;
+    const y = padT+plotH-barH;
+    content += `<rect x="${(cx-bw/2).toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${barH.toFixed(1)}" fill="rgba(163,119,232,0.5)" rx="3"></rect>`;
+    content += `<text x="${cx.toFixed(1)}" y="${Math.max(y-6,12).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#C9B6F0" font-family="IBM Plex Mono">${compactNum(vols[i])}</text>`;
+    content += `<text x="${cx.toFixed(1)}" y="${H-10}" text-anchor="middle" font-size="9.5" fill="#A79FC0" font-family="IBM Plex Mono">${lab}</text>`;
+  });
+
+  const points = labels.map((lab,i)=>{
+    const cx = padL + (i+0.5)*slot;
+    const cy = padT + plotH - (perKg[i]/maxPerKg)*plotH;
+    return {x:cx, y:cy};
+  });
+  const linePath = points.map((p,i)=> (i===0?'M':'L')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
+  content += `<path d="${linePath}" fill="none" stroke="#F0C285" stroke-width="2.5"></path>`;
+  points.forEach((p,i)=>{
+    content += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="#F0C285"></circle>`;
+    content += `<text x="${p.x.toFixed(1)}" y="${Math.max(p.y-10,12).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#F0C285" font-family="IBM Plex Mono" font-weight="600">$${perKg[i].toFixed(2)}</text>`;
+  });
+
+  content += `<text x="${padL}" y="${padT-4}" font-size="9.5" fill="#A79FC0" font-family="IBM Plex Mono">kg</text>`;
+  content += `<text x="${W-padR}" y="${padT-4}" text-anchor="end" font-size="9.5" fill="#F0C285" font-family="IBM Plex Mono">USD/kg</text>`;
+
+  setSvg(svg, W, H, content);
+}
+
+/* Average payment days by customer */
+function renderPay(rows){
+  const withPay = rows.filter(r=>r.payment_days!=null);
+  const map = {};
+  withPay.forEach(r=>{
+    map[r.customer] = map[r.customer] || {sum:0, n:0};
+    map[r.customer].sum += r.payment_days; map[r.customer].n += 1;
+  });
+  const data = Object.entries(map).map(([customer,v])=>({customer, avg:v.sum/v.n})).sort((a,b)=>b.avg-a.avg);
+
+  const svg = document.getElementById('chartPay');
+  toggleEmpty('emptyPay', data.length===0);
+  if(data.length===0){ svg.innerHTML=''; return; }
+
+  const rowH = 38, topPad = 6;
+  const W = 640, H = data.length*rowH + topPad*2;
+  const labelW = 138, rightPad = 46;
+  const barW = W - labelW - rightPad;
+  const maxV = Math.max(...data.map(d=>d.avg), 1);
+  const barH = 20;
+
+  let content = '';
+  data.forEach((d,i)=>{
+    const y = topPad + i*rowH;
+    const w = (d.avg/maxV)*barW;
+    const color = d.avg<=30 ? '#7FB88F' : d.avg<=60 ? '#E0A458' : '#D08494';
+    content += `<text x="${labelW-10}" y="${y+barH/2+4}" text-anchor="end" font-size="11.5" fill="#D8D2E8" font-family="Inter">${escapeHtml(d.customer)}</text>`;
+    content += `<rect x="${labelW}" y="${y}" width="${w.toFixed(1)}" height="${barH}" fill="${color}" rx="4"></rect>`;
+    content += `<text x="${(labelW+w+8).toFixed(1)}" y="${y+barH/2+4}" font-size="11" fill="#A79FC0" font-family="IBM Plex Mono">${Math.round(d.avg)}d</text>`;
+  });
+  setSvg(svg, W, H, content);
+}
+
+/* Fixed cost (prorated) per customer — kept separate from logistics charts */
+function renderFixed(rows){
+  const map = {};
+  rows.forEach(r=>{
+    map[r.customer] = map[r.customer] || {customer:r.customer, fixed:0};
+    map[r.customer].fixed += r.cost_fixed;
+  });
+  const data = Object.values(map).filter(d=>d.fixed>0).sort((a,b)=>b.fixed-a.fixed).slice(0,8);
+
+  const svg = document.getElementById('chartFixed');
+  toggleEmpty('emptyFixed', data.length===0);
+  if(data.length===0){ svg.innerHTML=''; return; }
+
+  const rowH = 38, topPad = 6;
+  const W = 640, H = data.length*rowH + topPad*2;
+  const labelW = 138, rightPad = 60;
+  const barW = W - labelW - rightPad;
+  const maxV = Math.max(...data.map(d=>d.fixed), 1);
+  const barH = 20;
+
+  let content = '';
+  data.forEach((d,i)=>{
+    const y = topPad + i*rowH;
+    const w = (d.fixed/maxV)*barW;
+    content += `<text x="${labelW-10}" y="${y+barH/2+4}" text-anchor="end" font-size="11.5" fill="#D8D2E8" font-family="Inter">${escapeHtml(d.customer)}</text>`;
+    content += `<rect x="${labelW}" y="${y}" width="${w.toFixed(1)}" height="${barH}" fill="${CAT_COLORS.fixed}" rx="4"></rect>`;
+    content += `<text x="${(labelW+w+8).toFixed(1)}" y="${y+barH/2+4}" font-size="11" fill="#A79FC0" font-family="IBM Plex Mono">${fmtMoney(d.fixed)}</text>`;
+  });
+  setSvg(svg, W, H, content);
+}
+
+function renderFixedRateBadges(){
+  const byYear = {};
+  DATA.forEach(r=>{
+    byYear[r.year] = byYear[r.year] || {fixed:0, kg:0};
+    byYear[r.year].fixed += r.cost_fixed;
+    byYear[r.year].kg += r.qty_kg;
+  });
+  const years = Object.keys(byYear).sort();
+  const el = document.getElementById('fixedRateBadges');
+  el.innerHTML = years.map(y=>{
+    const info = byYear[y];
+    const rate = info.kg ? info.fixed/info.kg : 0;
+    const label = rate>0 ? `<b>$${rate.toFixed(4)}</b>/kg` : 'sin datos';
+    const tag = (y==='2026') ? ' (parcial)' : '';
+    return `<span class="rate-badge">${y}${tag}: ${label}</span>`;
+  }).join('');
+}
+
+/* Containers (Req) shared by more than one distinct customer, within the current filter */
+function renderSharedContainers(rows){
+  const map = {};
+  rows.forEach(r=>{
+    map[r.req] = map[r.req] || { req:r.req, year:r.year, container:r.container, items:[], customers:new Set(), cost:0 };
+    map[r.req].items.push(r);
+    map[r.req].customers.add(r.customer);
+    map[r.req].cost += r.cost_logistics;
+  });
+  const shared = Object.values(map).filter(g=>g.customers.size>1).sort((a,b)=>b.year-a.year || String(a.req).localeCompare(String(b.req)));
+
+  const holder = document.getElementById('sharedContainers');
+  if(shared.length===0){
+    holder.innerHTML = '<div class="shared-empty">No hay contenedores compartidos entre clientes distintos en este filtro.</div>';
+    document.getElementById('sharedContainersNote').textContent = '';
+    return;
+  }
+
+  holder.innerHTML = shared.map(g=>{
+    const totalKg = g.items.reduce((s,r)=>s+r.qty_kg,0);
+    const rowsHtml = g.items.map(r=>{
+      const pct = totalKg ? (r.qty_kg/totalKg*100) : 0;
+      return `
+        <div class="shared-row">
+          <div><span class="cust">${escapeHtml(r.customer)}</span><span class="lote">Lote ${escapeHtml(r.lote)}</span></div>
+          <div class="kgpct">
+            <span>${fmtInt(r.qty_kg)} kg</span>
+            <div class="bar-bg"><div class="bar-fill" style="width:${pct.toFixed(1)}%"></div></div>
+            <span>${pct.toFixed(1)}%</span>
+          </div>
+        </div>`;
+    }).join('');
+    return `
+      <div class="shared-group">
+        <div class="shared-group-head">
+          <span class="req-tag">Req ${g.req}</span>
+          <span class="container-tag">${escapeHtml(g.container)} · ${g.year}</span>
+          <span class="cost-tag">Costo logístico total: ${fmtMoney(g.cost)}</span>
+        </div>
+        ${rowsHtml}
+      </div>`;
+  }).join('');
+
+  const custSet = new Set();
+  shared.forEach(g=>g.customers.forEach(c=>custSet.add(c)));
+  document.getElementById('sharedContainersNote').textContent =
+    `${shared.length} contenedor${shared.length===1?'':'es'} compartido${shared.length===1?'':'s'} entre ${custSet.size} clientes distintos, en este filtro.`;
+}
+
+
+function renderFixedYear(){
+  /* Annual fixed spend, NOT prorated — for controlling administrative cost itself.
+     Always shows all years regardless of active filters (year-over-year control view). */
+  const byYear = {};
+  DATA.forEach(r=>{ byYear[r.year] = (byYear[r.year]||0) + r.cost_fixed; });
+  const years = Object.keys(byYear).sort();
+  const data = years.map(y=>({year:y, total:byYear[y]}));
+
+  const svg = document.getElementById('chartFixedYear');
+  toggleEmpty('emptyFixedYear', data.every(d=>d.total===0));
+  if(data.every(d=>d.total===0)){ svg.innerHTML=''; return; }
+
+  const W=560, H=300, padL=54, padR=20, padT=24, padB=34;
+  const plotW = W-padL-padR, plotH = H-padT-padB;
+  const maxV = Math.max(...data.map(d=>d.total), 1);
+  const n = data.length;
+  const slot = plotW/n;
+  const bw = Math.min(slot*0.45, 70);
+
+  let content = gridLines(padL, padT, plotW, plotH, 4);
+  data.forEach((d,i)=>{
+    const cx = padL + (i+0.5)*slot;
+    const barH = (d.total/maxV)*plotH;
+    const y = padT+plotH-barH;
+    const isPartial = d.year==='2026';
+    content += `<rect x="${(cx-bw/2).toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${barH.toFixed(1)}" fill="${CAT_COLORS.fixed}" rx="3" ${isPartial?'opacity="0.55"':''}></rect>`;
+    if(d.total>0){
+      content += `<text x="${cx.toFixed(1)}" y="${(y-8).toFixed(1)}" text-anchor="middle" font-size="11" fill="#D8D2E8" font-family="IBM Plex Mono" font-weight="600">${fmtMoney(d.total)}</text>`;
+    } else {
+      content += `<text x="${cx.toFixed(1)}" y="${(padT+plotH-8).toFixed(1)}" text-anchor="middle" font-size="10" fill="#756C8C" font-family="IBM Plex Mono">sin datos</text>`;
+    }
+    content += `<text x="${cx.toFixed(1)}" y="${H-10}" text-anchor="middle" font-size="10.5" fill="#A79FC0" font-family="IBM Plex Mono">${d.year}${isPartial?' (parcial)':''}</text>`;
+  });
+  setSvg(svg, W, H, content);
+}
+
+populateFilters();
+renderFixedRateBadges();
+renderFixedYear();
+render();
+</script>
+</body>
+</html>
